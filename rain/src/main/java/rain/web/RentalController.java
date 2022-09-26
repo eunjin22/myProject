@@ -60,6 +60,7 @@ public class RentalController {
 		System.out.println(userId);
 		
 		//깃허브 테스트중 ㅎㅎㅎㅎㅎ
+		//나도 깃허브입성ㅎㅎㅎㅎ
 		
 		return null;
 		
