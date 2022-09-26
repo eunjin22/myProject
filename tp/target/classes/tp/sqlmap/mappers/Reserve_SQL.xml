@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="egovframework.sqlmap.mappers.Reserve_SQL">
+	
+	<resultMap type="reserve" id="reserveResult">
+		<result property="reserveNo" column="reserveNo"/>
+		<result property="userId" column="userId"/>
+		<result property="userName" column="userName"/>
+		<result property="userPhone" column="userPhone"/>
+		<result property="reserveDate" column="reserveDate"/>
+		<result property="reserveSTime" column="reserveSTime"/>
+		<result property="reserveETime" column="reserveETime"/>
+		<result property="roomNo" column="roomNo"/>
+		<result property="branchNo" column="branchNo"/>
+		<result property="price" column="price"/>
+		<result property="branchName" column="branchName"/>
+		<result property="roomName" column="roomName"/>
+		<result property="adminId" column="adminId"/>
+	</resultMap>
+
+	<insert id="insertReserve" parameterType="tp.service.ReserveVO">
+		insert into tp_reserve(reserveNo, userId, userName, userPhone, reserveDate, reserveSTime, reserveETime, roomNo, branchNo, price) 
+		values(
+		#{reserveNo},
+		#{userId},
+		#{userName},
+		#{userPhone},
+		#{reserveDate},
+		#{reserveSTime},
+		#{reserveETime},
+		#{roomNo},
+		#{branchNo},
+		#{price}
+		)
+	</insert>
+	
+	<select id="reserveSelect" resultMap="reserveResult">
+		select * from tp_reserve where reserveNo=#{reserveNo}
+	</select>
+	
+	<select id="selectReserveList" resultMap="reserveResult">
+		<!-- SELECT * FROM tp_reserve WHERE userId=#{userId} and reserveDate>=CURDATE() ORDER BY reserveDate, reserveStime, reserveNo LIMIT #{startIndex},#{endIndex} -->
+		<!-- SELECT * FROM tp_reserve WHERE userId=#{userId} and reserveDate>=CURDATE() ORDER BY reserveDate, reserveStime, reserveNo -->
+		SELECT * FROM tp_reserve WHERE userId=#{userId} ORDER BY reserveDate, reserveStime, reserveNo
+	</select>
+	
+	<select id="myPageReserveList" resultMap="reserveResult">		
+		SELECT * FROM tp_reserve WHERE userId=#{userId} ORDER BY reserveDate, reserveStime, reserveNo
+	</select>
+	
+	<select id="adminReserveList" resultMap="reserveResult">
+		SELECT * FROM tp_reserve WHERE reserveDate>=CURDATE() ORDER BY reserveDate LIMIT #{startIndex},#{endIndex}
+	</select>
+	
+	<select id="admin1ReserveList" resultMap="reserveResult">
+		SELECT * FROM tp_reserve WHERE reserveDate>=CURDATE() and branchNo=1
+	</select>
+	
+	<select id="admin2ReserveList" resultMap="reserveResult">
+		SELECT * FROM tp_reserve WHERE reserveDate>=CURDATE() and branchNo=2
+	</select>
+	
+	<select id="reserveConfirm" resultMap="reserveResult">
+		SELECT * FROM tp_reserve 
+		WHERE reserveDate=#{reserveDate} 
+		AND 
+		branchNo = #{branchNo}
+		AND 
+		roomNo = #{roomNo}
+		AND 
+		(reserveSTime BETWEEN #{reserveSTime} AND #{reserveETime}
+		OR 
+		reserveETime #{reserveSTime} AND #{reserveETime})
+	</select>
+	
+	<select id="reserveCheck" resultType="int">
+    	SELECT COUNT(*) FROM tp_reserve 
+		WHERE reserveDate=#{reserveDate}
+		AND
+		roomNo=#{roomNo}
+		AND
+		branchNo=#{branchNo}
+		AND 
+		(reserveSTime BETWEEN #{reserveSTime} AND #{reserveETime}
+		OR
+		reserveETime BETWEEN #{reserveSTime} AND #{reserveETime})
+    </select>
+
+	<delete id="reserveDelete">
+		delete from tp_reserve where reserveNo=#{reserveNo}
+	</delete>
+	
+	<update id="reserveUpdate">
+		update from tp_reserve set reserveDate=#{reserveDate}, reserveSTime=#{reserveSTime}, reserveETime=#{reserveETime}, branchNo=#{branchNo}, roomNo=#{roomNo} 
+		where reserveNo=#{reserveNo}
+	</update>
+	
+	<select id="selectreserveTotal" resultType="int">
+		SELECT COUNT(*) total FROM tp_reserve WHERE reserveDate >= CURDATE()
+	</select>
+	
+	<select id="selectreserveUserTotal" resultType="int">
+		SELECT COUNT(*) total FROM tp_reserve where userId=#{userId} and reserveDate >= CURDATE()
+	</select>
+	
+	<insert id="insertBranch">
+		INSERT INTO tp_room(branchNo, roomNo, branchName, roomName, adminId) VALUES(
+		branchNo=#{branchNo},
+		roomNo=#{roomNo},
+		branchName=#{branchName},
+		roomName=#{roomName},
+		adminId=#{adminId}
+		)
+	</insert>
+	
+</mapper>
