@@ -59,6 +59,7 @@ public class RentalController {
 		userId = (String) session.getAttribute("SessionUserID");
 		System.out.println(userId);
 		
+		//깃허브 테스트중 ㅎㅎㅎㅎㅎ
 		
 		return null;
 		
