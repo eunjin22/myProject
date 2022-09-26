@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+    <typeAliases>
+		<typeAlias alias="user" type="rain.service.UserVO"/>
+		<typeAlias alias="rental" type="rain.service.RentalVO"/>
+		<!--<typeAlias alias="board" type="tp.service.BoardVO"/>
+		   -->
+    </typeAliases>
+</configuration>

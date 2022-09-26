@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="rain.sqlmap.mappers.User_SQL">
+<resultMap type="user" id="userResult">
+      <result property="userId" column="userId" />
+      <result property="userPw" column="userPw" />
+      <result property="userName" column="userName" />
+      <result property="userPhone" column="userPhone" />
+      <result property="createDate" column="createDate" />
+</resultMap>  
+
+	<!--회원가입 -->
+	<insert id="insertUser" parameterType="rain.service.UserVO">
+	INSERT INTO um_user
+      (USERID, USERPW, USERNAME, USERPHONE, CREATEDATE)
+      VALUES(#{userId},#{userPw},#{userName},#{userPhone},now());
+	</insert>
+	
+	<!--아이디 중복체크 -->
+    <!--존재하면 count=1, 존재하지않으면 count=0 으로 조회되므로 resultType="int"-->
+   <select id="idCheck" parameterType="rain.service.UserVO" resultType="int">
+         SELECT COUNT(*) FROM um_user WHERE USERID = #{userId}
+   </select> 
+
+	<!-- 로그인 -->
+   <select id="loginUser" resultType="int">
+        SELECT COUNT(*) FROM um_user WHERE USERID= #{userId} AND USERPW= #{userPw}
+   </select>
+
+	<!--이름,전화번호 세션값 가져옴  -->
+   <select id="selectUserName" resultType="string">
+      select userName from um_user where userId=#{userId}
+   </select>
+   
+   <select id="selectUserPhone" resultType="string">
+      select userPhone from um_user where userId=#{userId}
+   </select>
+   
+      <!-- 마이페이지 --> <!-- 세션비밀번호가쟈와야해 -->
+   <select id="selectUser" resultMap="userResult">  
+      SELECT * FROM um_user WHERE USERID=#{userId}
+   </select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</mapper>

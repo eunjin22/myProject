@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="rain.sqlmap.mappers.Rental_SQL"> 
+
+	<resultMap type="rental" id="rentalResult"> 
+		<result property="rentalNo" column="rentalNo"/>
+		<result property="userId" column="userId"/>
+		<result property="userName" column="userName"/>
+		<result property="userPhone" column="userPhone"/>
+		<result property="rentalPlace" column="rentalPlace"/>
+		<result property="returnPlace" column="returnPlace"/>
+		<result property="rentalDate" column="rentalDate"/>
+		<result property="rentalDate" column="returnDate"/>
+	</resultMap>
+
+	<!--대여 신청  -->
+	<insert id="insertRental" parameterType="rain.service.RentalVO">
+	INSERT INTO um_rental
+	(userId, userName, userPhone, rentalPlace, returnPlace, rentalDate, returnDate)
+	values(
+	#{userId},
+	#{userName},
+	#{userPhone},
+	#{rentalPlace},
+	#{returnPlace},
+	#{rentalDate},
+	DATE_ADD(#{rentalDate}, INTERVAL 2 WEEK)
+	)
+	</insert>
+	
+	<!-- 대여확인 : 대여가 있으면 1 없으면 0 -->
+	<select id="rentalCheck" resultType="int">
+		SELECT COUNT(*) FROM um_rental WHERE rentalNo = #{rentalNo}
+	</select>
+	
+	<!-- 본인 대여내역조회  -->
+	<select id="myrentalSelect" resultMap="rentalResult">
+		SELECT * FROM um_rental WHERE userId = #{userId} ORDER BY rentalDate
+	</select>
+	
+
+
+</mapper>
+
+	
