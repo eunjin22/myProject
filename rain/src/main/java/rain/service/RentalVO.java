@@ -18,6 +18,11 @@ public class RentalVO {
 	private Date rentalDate;
 	private Date returnDate;
 	
+	//페이징
+	private int viewPage = 1;
+	private int startIndex = 1;
+	private int endIndex = 10;
+	
 	public RentalVO(String userId, String userName, String userPhone, String rentalPlace, String returnPlace,
 			Date rentalDate, Date returnDate) {
 		super();
@@ -29,6 +34,8 @@ public class RentalVO {
 		this.rentalDate = rentalDate;
 		this.returnDate = returnDate;
 	}
+	
+	
 	
 	
 }

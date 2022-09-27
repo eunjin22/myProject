@@ -43,4 +43,16 @@ public class RentalDAOMyBatis extends EgovAbstractMapper implements RentalDAO{
 		
 	}
 
+	//관리자 대여전체 내역조회
+	@Override
+	public List<RentalVO> adminRentalList(RentalVO rentalVO) throws Exception {
+		return selectList("adminRentalList", rentalVO);
+	}
+
+	//총대여건수
+	@Override
+	public int selectrentalTotal(RentalVO rentalVO) throws Exception {
+		return selectOne("selectrentalTotal", rentalVO);
+	}
+
 }

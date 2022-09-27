@@ -1,14 +1,52 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <style>
-    #btn{
-		width:270px;
-		height:50px;		
-		}
-    </style>
+<style>  
+body { background: #fff; }
+.blueone {
+  border-collapse: collapse;
+  width: 1200px;
+  
+}  
+.blueone th {
+  padding: 10px;
+  color: #168;
+  border-bottom: 3px solid #168;
+  text-align: left;
+  font-size: 20px;
+}
+.blueone td {
+  color: #669;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+.blueone tr:hover td {
+  color: #004;
+}
+#size{
+   width: 90px;
+   height: 40px;
+}
+#pad{
+	padding-right:580px;
+}
+#page{
+	padding-left:auto;
+	padding-right:auto;
+}
+#pagecolor{
+    width: 90px;
+    height: 40px;
+	background-color:#323C73;
+}
+
+</style>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         
@@ -26,7 +64,7 @@
         <meta name="twitter:card" content="summary_large_image"> <!-- to have large image post format in Twitter -->
 
         <!-- Webpage Title -->
-        <title>Sign Up - Ioniq</title>
+        <title>My Rent List</title>
         
         <!-- Styles -->
         <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
@@ -37,100 +75,40 @@
         
         <!-- Favicon  -->
         <link rel="icon" href="resources/images/favicon.png">
-		<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-		<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-		<script type="text/javascript">
-		
-		 <!--회원가입-->
-	      function join(){
-	         var id= $('#userId').val();
-	          var pw= $('#userPw').val();
-	          var pw2= $('#userPw2').val();
-	          var name= $('#userName').val();
-	          var phone= $('#userPhone').val();  
-	          
-	          if(id == ""){
-	             alert("아이디를 입력하세요.")
-	          }else if(pw == ""){
-	             alert("비밀번호를 입력하세요.")
-	          }else if(pw2 == ""){
-	             alert("비밀번호를 확인하세요.")
-	          }else if(name == ""){
-	             alert("이름을 입력하세요.")
-	          }else if(phone == ""){
-	             alert("전화번호를 입력하세요.")
-	          }else{
-	             $.ajax({
-	                  url:'signUp.do',
-	                  type:'POST',
-	                  dataType: 'text',
-	                  data: { 
-	                       userId:id,
-	                       userPw:pw,
-	                       userPw2:pw2,
-	                       userName:name,
-	                       userPhone:phone  
-	                  },
-	                  success: function(data){
-	                     if(data == ""){
-	                        alert("회원정보를 다시확인해주세요.")
-	                     }else{
-	                        alert("Rendrella에 오신 것을 환영합니다!")
-	                        location.href="main.do"  
-	                     }
-	                  }    
-	             })
-	                  
-	                  
-	          }
-	      }
-	      
+        
+        <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+        <script type="text/javascript">
+        
+		function cancel(){
+			 var no = $('#rentalNo').val();
+			 var id = $('#userId').val();
+/* 			 alert(no)
+			 alert(id) */
+		     $.ajax({
+				url : "deleteMyRental.do",
+				type : "GET",
+				data: {	
+					rentalNo : no,
+					userId : id
+				},
+				dataType: "text",
+				success : function(data){
+					alert("cancel?");
+					location.reload();
+				}
+			})
+		}
+		</script>
+</head>
+<body data-bs-spy="scroll" data-bs-target="#navbarExample">
+<jsp:include page="/WEB-INF/templates/header.jsp"></jsp:include>
 
-		/* 아이디 중복체크ㄴ */  
-	      function checkId() {
-	            $.ajax({
-	               url : "idCheck.do",
-	               type : "GET",
-	               dataType : "text", 
-	               data : {
-	                  userId : $("#userId").val() //userId의 id값이 userId인 입력란의 값을 저장
-	               },
-	               success : function(data) {
-	                  if (data == "no") {
-	                     alert("중복된 아이디입니다.");
-	                  } else if (data == "ok") {
-	                     alert("사용가능한 아이디입니다.")
-	                  }
-	               }
-	            });
-	         };
-	      
-	            <!--비밀번호확인-->
-	            $(function(){
-	                $('#userPw').keyup(function(){ //userPw: 비밀번호
-	                      $('#userPw2').html('');  //userPw2: 비밀번호 확인
-	                });
-	                   $('#userPw2').keyup(function(){
-	                    if($('#userPw').val() != $('#userPw2').val()){ //비밀번호가 다르면
-	                        $('#password_check').html('비밀번호 일치하지 않음<br>');
-	                        $('#password_check').attr('color', '#DA70D6');                 
-	                     } else{ //같으면
-	                         $('#password_check').html('비밀번호 일치함<br>');
-	                         $('#password_check').attr('color', '#199894b3'); 
-	                     }
-	                });
-	             });
-
-	         </script>
-    </head>
-  <body data-bs-spy="scroll" data-bs-target="#navbarExample">
-  <jsp:include page="/WEB-INF/templates/header.jsp"></jsp:include>
-        <!-- Header -->
+ <!-- Header -->
         <header class="ex-header">
             <div class="container">
                 <div class="row">
                     <div class="col-xl-10 offset-xl-1">
-                        <h1 class="text-center">회원가입</h1>
+                        <h1 class="text-center">전체 대여 목록</h1>
                     </div> <!-- end of col -->
                 </div> <!-- end of row -->
             </div> <!-- end of container -->
@@ -139,48 +117,77 @@
         
         
         <!-- Basic -->
-        <div class="ex-form-1 pt-5 pb-5">
+        <div class="ex-form-1 pt-5 pb-5" id="pad">
             <div class="container">
                 <div class="row">
                     <div class="col-xl-6 offset-xl-3">
                         <div class="text-box mt-5 mb-5">
+                             
 
                             <!-- Sign Up Form -->
-                            <form>
-                                <div class="mb-4 form-floating">
-                                    <input type="text" class="form-control" id="userId" name="userId" placeholder="id">
-                                    <label for="floatingInput">아이디</label>
-                                    <br> 
-                                    <input type="button" class="form-control-submit-button" onclick="checkId()" value="아이디 확인">
-                                </div>
-                                <div class="mb-4 form-floating">
-                                    <input type="password" class="form-control" id="userPw" name="userPw" placeholder="Password">
-                                    <label for="floatingPassword">비밀번호</label>
-                                </div>
-                                <div class="mb-4 form-floating">
-                                    <input type="password" class="form-control" id="userPw2" name="userPw2" placeholder="Password Check">
-                                    <label for="floatingPassword">비밀번호 확인</label>
-                                    <font id="password_check" size="2"></font>
-                                </div>
-                                <div class="mb-4 form-floating">
-                                    <input type="text" class="form-control" id="userName" name="userName" placeholder="Your name">
-                                    <label for="floatingInput">이름</label>
-                                </div>
-                                <div class="mb-4 form-floating">
-                                    <input type="tel" class="form-control" id="userPhone" name="userPhone" placeholder="tel">
-                                    <label for="floatingInput">전화번호</label>
-                                </div>                                
-                                <input type="button" class="form-control-submit-button" onclick="location.href='main.do'" value="뒤로가기" id="btn">
-                                <span></span>
-                                <input type="button" class="form-control-submit-button" onclick="join()" id="btn" value="회원가입"/>
-                            </form>
+                            <form style="margin-left: auto; margin-right: auto;">
+                            <div class = "mb-4 form-floating" >
+                               <table class="blueone"> 
+                             <!--   <p class="mb-4"> <b></b><a class="blue" style="font-size:1.7em; font-weight: bold;" href="qr.do">QR</a></b></p> -->
+                                <thead>
+                                	<tr>
+                                		<th scope="col"><b>번호</b></th>
+                                		<th scope="col"><b>아이디</b></th>
+                                		<th scope="col"><b>이름</b></th>
+                                		<th scope="col"><b>연락처</b></th> 
+                                		<th scope="col"><b>대여장소</b></th>
+                                		<th scope="col"><b>반납장소</b></th>
+                                		<th scope="col"><b>대여일자</b></th>
+                                		<th scope="col"><b>반납일자</b></th> 	
+                                		<th scope="col"></th>	
+                                	</tr>
+                                </thead>
+                                <tbody>
+                                <c:forEach var="adminrental" items="${adminRentalList}"> 
+                                	<tr>
+                                		<td>${adminrental.rentalNo}</td> 
+                                		<td>${adminrental.userId}</td>
+                                		<td>${adminrental.userName}</td> 
+                                		<td>${adminrental.userPhone}</td>
+                                		<td>${adminrental.rentalPlace}</td> 
+                                		<td>${adminrental.returnPlace}</td>
+                                		<td><fmt:formatDate value="${adminrental.rentalDate}" pattern="yyyy-MM-dd" /></td>
+                                		<td><fmt:formatDate value="${adminrental.returnDate}" pattern="yyyy-MM-dd" /></td>
+                                		<td><input type = "button" class="form-control-submit-button" 
+                                			onclick="cancel()" value="cancel" id="size"></td>
+                                		<td><input type ="hidden" id="rentalNo" name="rentalNo" value="${adminrental.rentalNo}"></td>
+                                		<td><input type ="hidden" id="userId" name="userId" value="${SessionUserID}"></td>
+                                	</tr>
+                                	
+                                </c:forEach>
+                                </tbody>
+                               </table>
+                        	</div> 
+                           </form>	
+                           <!--페이징 처리  -->
+   							<div style="text-align: center" id="page">
+     							<input type="button" onclick="location.href='adminRentalList.do?viewPage=1'" value="처음" class="form-control-submit-button" id="pagecolor"></input>                 
+      							<c:forEach var="i" begin="1" end="${totalPage}">
+      							<input type="button" onclick="location.href='adminRentalList.do?viewPage=${i}'"  class="btn" value="${i}"></input>
+         							<%-- <a href="reserveConfirm.do?viewPage=${i}" class="btn4">${i}</a> --%>
+      							</c:forEach>
+      							<input type="button" onclick="location.href='adminRentalList.do?viewPage=${totalPage}'" value="끝" class="form-control-submit-button" id="pagecolor"></input>   
+   							</div>
+   							<br/>
+                           <!--  <p style="text-align: right; font-size: 13px; color: #FF6464"><b>※반납일자를 반드시 확인해주세요.</b></p> -->
+                           <br>
+                           <input type="button" class="form-control-submit-button" onclick="location.href='main.do'" value="back" id="size">
+                            
+                            
+                            
+                            
                             <!-- end of sign up form -->
-
-                        </div> <!-- end of text-box -->
+ 
+                      </div>  <!-- end of text-box  -->
                     </div> <!-- end of col -->
-                </div> <!-- end of row -->
-            </div> <!-- end of container -->
-        </div> <!-- end of ex-basic-1 -->
+               </div> <!-- end of row -->
+           </div> <!-- end of container -->
+       </div> <!-- end of ex-basic-1 -->
         <!-- end of basic -->
 
 
@@ -282,4 +289,6 @@
         <script src="resources/js/replaceme.min.js"></script> <!-- ReplaceMe for rotating text -->
         <script src="resources/js/scripts.js"></script> <!-- Custom scripts -->
     </body>
+</html>
+</body>
 </html>

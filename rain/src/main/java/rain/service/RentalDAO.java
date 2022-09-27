@@ -19,4 +19,9 @@ public interface RentalDAO {
 	//본인 대여내역삭제
 	void deleteMyRental(RentalVO rentalVO) throws Exception;
 	
+	//관리자 대여전체 내역조회
+	List<RentalVO> adminRentalList(RentalVO rentalVO) throws Exception;
+	
+	//총 대여건수
+	int selectrentalTotal(RentalVO rentalVO) throws Exception;
 }

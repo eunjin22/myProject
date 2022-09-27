@@ -5,6 +5,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+#navbarExample{
+	padding : 0px 0px 8px;
+}
+</style>
 </head>
 <body data-bs-spy="scroll" data-bs-target="#navbarExample">
    <%
@@ -19,7 +24,7 @@
             <div class="container">
 
                 <!-- Image Logo -->
-                <a class="navbar-brand logo-image" href="main.do"><img src="resources/images/logo.svg" alt="alternative"></a> 
+                <a class="navbar-brand logo-image" href="main.do"><img src="resources/images/apap.png" alt="alternative" style="width:200px;height:100px;"></a> 
 
                 <!-- Text Logo - Use this if you don't have a graphic logo -->
                 <!-- <a class="navbar-brand logo-text" href="index.html">Ioniq</a> -->
@@ -31,68 +36,53 @@
                 <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
                     <ul class="navbar-nav ms-auto navbar-nav-scroll">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="main.do">HOME</a>
+                            <a class="nav-link active" aria-current="page" href="main.do">홈</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#features">ABOUT</a>
+                            <a class="nav-link" href="main.do#features">소개</a>
                         </li>
                         <%
                               if (USERID != null && USERPW != null && (USERID.equals("ADMIN"))) { // 로그인이 됐을시
                         %>
                         <li class="nav-item">
-                            <a class="nav-link" href="#details">RENT LIST</a>
+                            <a class="nav-link" href="adminRentalList.do">전체 대여 목록</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#pricing">Q&A</a>
+                            <a class="nav-link" href="main.do#pricing">Q&A</a>
                         </li>
                         <span class="nav-item">
-                        	<a href="logout.do" class="btn-outline-sm" >Log out</a>
+                        	<a href="logout.do" class="btn-outline-sm" >로그아웃</a>
                     	</span>
                         <%
                               }else if(USERID != null && USERPW != null){  // 사용자로그인
                          %> 
                         <li class="nav-item">
-                            <a class="nav-link" href="#details">RENT UMBRELLA</a>
+                            <a class="nav-link" href="main.do#details">우산 대여하기</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#pricing">Q&A</a>
+                            <a class="nav-link" href="main.do#pricing">Q&A</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="myPage.do">MYPAGE</a>
+                            <a class="nav-link" href="myPage.do">마이페이지</a>
                         </li>
                         <span class="nav-item">
-                        	<a href="logout.do" class="btn-outline-sm" >Log out</a>
+                        	<a href="logout.do" class="btn-outline-sm" >로그아웃</a>
                     	</span>
                         <%
                               } else{ //로그아웃상태
                         %>
                         <li class="nav-item">
-                            <a class="nav-link" href="login.do">RENT UMBRELLA</a>
+                            <a class="nav-link" href="login.do">우산 대여하기</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#pricing">Q&A</a>
+                            <a class="nav-link" href="main.do#pricing">Q&A</a>
                         </li>
                         <span class="nav-item">
-                        	<a href="login.do" class="btn-outline-sm" >Log in</a>
+                        	<a href="login.do" class="btn-outline-sm" >로그인</a>
                     	</span>
                     	<%
                               }
                         %>
-                    	
-                        <!-- <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-bs-toggle="dropdown" aria-expanded="false">Drop</a>
-                            <ul class="dropdown-menu" aria-labelledby="dropdown01">
-                                <li><a class="dropdown-item" href="article.html">HOME</a></li>
-                                <li><div class="dropdown-divider"></div></li>
-                                <li><a class="dropdown-item" href="terms.html">Terms Conditions</a></li>
-                                <li><div class="dropdown-divider"></div></li>
-                                <li><a class="dropdown-item" href="privacy.html">Privacy Policy</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <span class="nav-item">
-                        <a href="login.do" class="btn-outline-sm" >Log in</a>
-                    </span> -->
                 </div> <!-- end of navbar-collapse -->
             </div> <!-- end of container -->
         </nav> <!-- end of navbar -->

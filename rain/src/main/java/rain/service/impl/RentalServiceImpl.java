@@ -48,4 +48,16 @@ public class RentalServiceImpl implements RentalService{
 		
 	}
 
+	//관리자 전체대여 내역조회
+	@Override
+	public List<RentalVO> adminRentalList(RentalVO rentalVO) throws Exception {
+		return rentalDAO.adminRentalList(rentalVO);
+	}
+
+	//총 대여건수
+	@Override
+	public int selectrentalTotal(RentalVO rentalVO) throws Exception {
+		return rentalDAO.selectrentalTotal(rentalVO);
+	}
+
 }

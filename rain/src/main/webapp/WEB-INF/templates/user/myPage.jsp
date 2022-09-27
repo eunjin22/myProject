@@ -32,81 +32,19 @@
         <!-- Favicon  -->
         <link rel="icon" href="resources/images/favicon.png">
 
+		<style>
+		#btn{
+			width:270px;
+			height:50px;		
+		}
+		#navbarExample{
+			padding : 0px 0px 8px;
+		}
+		
+		</style>
     </head>
-   <body data-bs-spy="scroll" data-bs-target="#navbarExample">
-   <%
-   String USERID = (String) session.getAttribute("SessionUserID"); //정상적으로 로그인이 진행되면 USERID,USERPW에 값이 들어옴
-   String USERPW = (String) session.getAttribute("SessionUserPW");
-   %>
-   
-   <!-- Navigation -->
-        <nav id="navbarExample" class="navbar navbar-expand-lg fixed-top navbar-light" aria-label="Main navigation">
-            <div class="container">
-
-                <!-- Image Logo -->
-                <a class="navbar-brand logo-image" href="main.do"><img src="resources/images/logo.svg" alt="alternative"></a> 
-
-                <!-- Text Logo - Use this if you don't have a graphic logo -->
-                <!-- <a class="navbar-brand logo-text" href="index.html">Ioniq</a> -->
-
-                <button class="navbar-toggler p-0 border-0" type="button" id="navbarSideCollapse" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
-                    <ul class="navbar-nav ms-auto navbar-nav-scroll">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="main.do">HOME</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="main.do#features">ABOUT</a>
-                        </li>
-                        <%
-                              if (USERID != null && USERPW != null && (USERID.equals("ADMIN"))) { // 로그인이 됐을시
-                        %>
-                        <li class="nav-item">
-                            <a class="nav-link" href="main.do#details">RENT LIST</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="main.do#pricing">Q&A</a>
-                        </li>
-                        <span class="nav-item">
-                        	<a href="logout.do" class="btn-outline-sm" >Log out</a>
-                    	</span>
-                        <%
-                              }else if(USERID != null && USERPW != null){  // 사용자로그인
-                         %> 
-                        <li class="nav-item">
-                            <a class="nav-link" href="main.do#details">RENT UMBRELLA</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="main.do#pricing">Q&A</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="myPage.do">MYPAGE</a>
-                        </li>
-                        <span class="nav-item">
-                        	<a href="logout.do" class="btn-outline-sm" >Log out</a>
-                    	</span>
-                        <%
-                              } else{ //로그아웃상태
-                        %>
-                        <li class="nav-item">
-                            <a class="nav-link" href="main.do#details">RENT UMBRELLA</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="main.do#pricing">Q&A</a>
-                        </li>
-                        <span class="nav-item">
-                        	<a href="login.do" class="btn-outline-sm" >Log in</a>
-                    	</span>
-                    	<%
-                              }
-                        %>
-                    	</ul>
-                    </div>
-                 </div>
-              </nav>
+ <body data-bs-spy="scroll" data-bs-target="#navbarExample">
+ <jsp:include page="/WEB-INF/templates/header.jsp"></jsp:include>
 
 
         <!-- Header -->
@@ -128,11 +66,11 @@
                 <div class="row">
                     <div class="col-xl-6 offset-xl-3">
                         <div class="text-box mt-5 mb-5" >
-                            <div class="mb-4"> 
-                            <!-- <b></b><a class="blue" style="font-size:2.0em; font-weight: bold; display:inline-flex;" href="main.do">QR</a> -->
+                            <!-- <div class="mb-4"> 
+                            <b></b><a class="blue" style="font-size:2.0em; font-weight: bold; display:inline-flex;" href="main.do">QR</a>
                            
 							<b></b><a class="blue" style="font-size:1.7em; font-weight: bold; display:inline-flex;" href="myrentList.do">대여내역</a>
-							</div> 
+							</div>  -->
                             <!-- Sign Up Form -->
                             <form>
                                 <div class="mb-4 form-floating">
@@ -153,7 +91,9 @@
                                     <label for="floatingInput">PhoneNumber</label>
                                 </div>
                                 
-                                <input type="button" class="form-control-submit-button" onclick="location.href='main.do'" value="save">
+                                <input type="button" class="form-control-submit-button" onclick="location.href='main.do'" value="뒤로가기" id="btn">
+                                <span></span>
+                                <input type="button" class="form-control-submit-button" onclick="location.href='myrentList.do'" value="대여내역" id="btn">
                             </form>
                             <!-- end of sign up form -->
  
@@ -233,22 +173,6 @@
             </div> <!-- end of container -->
         </div> <!-- end of copyright --> 
         <!-- end of copyright -->
-
-        <!-- Copyright -->
-        <div class="copyright">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <p class="p-small">Copyright © <a href="#your-link">Your name</a></p>
-                    </div> <!-- end of col -->
-                    <div class="col-lg-6">
-                        <p class="p-small">Distributed By<a href="https://themewagon.com/"> Themewagon</a></p>
-                    </div> <!-- end of col -->
-                </div> <!-- enf of row -->
-            </div> <!-- end of container -->
-        </div> <!-- end of copyright --> 
-        <!-- end of copyright -->
-        
 
         <!-- Back To Top Button -->
         <button onclick="topFunction()" id="myBtn">

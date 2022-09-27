@@ -117,4 +117,28 @@ public class RentalController {
 		 rentalService.deleteMyRental(rentalVO);
 		 return "user/myPage"; //user/userrentalList 로 바로리턴하면 새로고침 안되는지무러보기
 	 }
+	 
+	//관리자 전체대여 내역조회
+	 @RequestMapping(value = "/adminRentalList.do", method = RequestMethod.GET)
+		public String adminRentalList(RentalVO rentalVO, Model model) throws Exception {
+					
+			int total = rentalService.selectrentalTotal(rentalVO);
+			int totalPage = (int) Math.ceil((double)total/10); //Math.ceil: 소수점 올림
+			int viewPage = rentalVO.getViewPage();
+			int startIndex = (viewPage-1) * 10;
+			int endIndex = 10;
+			
+			rentalVO.setStartIndex(startIndex);
+			rentalVO.setEndIndex(endIndex);
+			
+			model.addAttribute("total", total);
+			model.addAttribute("viewPage", viewPage);
+			model.addAttribute("totalPage", totalPage);
+			model.addAttribute("startIndex", startIndex);
+			model.addAttribute("endIndex", endIndex);
+			model.addAttribute("adminRentalList", rentalService.adminRentalList(rentalVO));
+			
+			return "rental/adminRentalList";	
+		}
+	 
 }

@@ -3,6 +3,12 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+    <style>
+    #btn{
+		width:270px;
+		height:50px;		
+		}
+    </style>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         
@@ -66,86 +72,14 @@
 </script>
     </head>
      <body data-bs-spy="scroll" data-bs-target="#navbarExample">
-   <%
-   String USERID = (String) session.getAttribute("SessionUserID"); //정상적으로 로그인이 진행되면 USERID,USERPW에 값이 들어옴
-   String USERPW = (String) session.getAttribute("SessionUserPW");
-   %>
-   
-   <!-- Navigation -->
-        <nav id="navbarExample" class="navbar navbar-expand-lg fixed-top navbar-light" aria-label="Main navigation">
-            <div class="container">
-
-                <!-- Image Logo -->
-                <a class="navbar-brand logo-image" href="main.do"><img src="resources/images/logo.svg" alt="alternative"></a> 
-
-                <!-- Text Logo - Use this if you don't have a graphic logo -->
-                <!-- <a class="navbar-brand logo-text" href="index.html">Ioniq</a> -->
-
-                <button class="navbar-toggler p-0 border-0" type="button" id="navbarSideCollapse" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
-                    <ul class="navbar-nav ms-auto navbar-nav-scroll">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="main.do">HOME</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="main.do#features">ABOUT</a>
-                        </li>
-                        <%
-                              if (USERID != null && USERPW != null && (USERID.equals("ADMIN"))) { // 로그인이 됐을시
-                        %>
-                        <li class="nav-item">
-                            <a class="nav-link" href="main.do#details">RENT LIST</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="main.do#pricing">Q&A</a>
-                        </li>
-                        <span class="nav-item">
-                        	<a href="logout.do" class="btn-outline-sm" >Log out</a>
-                    	</span>
-                        <%
-                              }else if(USERID != null && USERPW != null){  // 사용자로그인
-                         %> 
-                        <li class="nav-item">
-                            <a class="nav-link" href="main.do#details">RENT UMBRELLA</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="main.do#pricing">Q&A</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="myPage.do">MYPAGE</a>
-                        </li>
-                        <span class="nav-item">
-                        	<a href="logout.do" class="btn-outline-sm" >Log out</a>
-                    	</span>
-                        <%
-                              } else{ //로그아웃상태
-                        %>
-                        <li class="nav-item">
-                            <a class="nav-link" href="main.do#details">RENT UMBRELLA</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="main.do#pricing">Q&A</a>
-                        </li>
-                        <span class="nav-item">
-                        	<a href="login.do" class="btn-outline-sm" >Log in</a>
-                    	</span>
-                    	<%
-                              }
-                        %>
-                    	</ul>
-                    </div>
-                 </div>
-              </nav>
+	 <jsp:include page="/WEB-INF/templates/header.jsp"></jsp:include>
 
         <!-- Header -->
         <header class="ex-header">
             <div class="container">
                 <div class="row">
                     <div class="col-xl-10 offset-xl-1">
-                        <h1 class="text-center">Log In</h1>
+                        <h1 class="text-center">로그인</h1>
                     </div> <!-- end of col -->
                 </div> <!-- end of row -->
             </div> <!-- end of container -->
@@ -159,23 +93,24 @@
                 <div class="row">
                     <div class="col-xl-6 offset-xl-3">
                         <div class="text-box mt-5 mb-5">
-                            <p class="mb-4">You don't have a password? Then please <a class="blue" href="signUp.do">Sign Up</a></p>
 
                             <!-- Log In Form -->
                             <form>
                                 <div class="mb-4 form-floating">
                                     <input type="text" class="form-control" id="userId" name="userId" placeholder="id">
-                                    <label for="floatingInput">Id</label>
+                                    <label for="floatingInput">아이디</label>
                                 </div>
                                 <div class="mb-4 form-floating">
                                     <input type="password" class="form-control" id="userPw" name="userPw" placeholder="Password">
-                                    <label for="floatingPassword">Password</label>
+                                    <label for="floatingPassword">비밀번호</label>
                                 </div>
-                                <div class="mb-4 form-check">
+                               <!--  <div class="mb-4 form-check">
                                     <input type="checkbox" class="form-check-input" id="exampleCheck1">
                                     <label class="form-check-label" for="exampleCheck1">I agree with the site's stated <a href="privacy.html">Privacy Policy</a> and <a href="terms.html">Terms & Conditions</a></label>
-                                </div>
-                                 <input type="button" onclick="login()" class="form-control-submit-button" value="Log in"/>
+                                </div> -->
+                                 <input type="button" class="form-control-submit-button" onclick="location.href='signUp.do'" value="회원가입" id="btn">
+                                <span></span>
+                                <input type="button" class="form-control-submit-button" onclick="login()" value="로그인" id="btn">
                             </form>
                             <!-- end of log in form -->
 
@@ -255,23 +190,6 @@
             </div> <!-- end of container -->
         </div> <!-- end of copyright --> 
         <!-- end of copyright -->
-
-
-        <!-- Copyright -->
-        <div class="copyright">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <p class="p-small">Copyright © <a href="#your-link">Your name</a></p>
-                    </div> <!-- end of col -->
-                    <div class="col-lg-6">
-                        <p class="p-small">Distributed By<a href="https://themewagon.com/"> Themewagon</a></p>
-                    </div> <!-- end of col -->
-                </div> <!-- enf of row -->
-            </div> <!-- end of container -->
-        </div> <!-- end of copyright --> 
-        <!-- end of copyright -->
-        
 
         <!-- Back To Top Button -->
         <button onclick="topFunction()" id="myBtn">

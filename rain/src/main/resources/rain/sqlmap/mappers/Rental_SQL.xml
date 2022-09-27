@@ -47,6 +47,17 @@
 	<delete id="deleteMyRental">
 		DELETE FROM um_rental where userId = #{userId} and rentalNo = #{rentalNo}
 	</delete>
+	
+	<!-- 관리자 대여내역조회 -->
+	<select id="adminRentalList" resultMap="rentalResult">
+		SELECT * FROM um_rental WHERE rentalDate>=CURDATE() ORDER BY rentalDate LIMIT #{startIndex},#{endIndex}
+	</select>
+	
+	<!-- 총 대여건수 -->
+	<select id="selectrentalTotal" resultType="int">
+		SELECT COUNT(*) total FROM um_rental WHERE rentalDate >= CURDATE()
+	</select>
+	
 </mapper>
 
 	

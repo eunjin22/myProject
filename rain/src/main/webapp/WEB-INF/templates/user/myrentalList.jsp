@@ -11,7 +11,7 @@
 body { background: #fff; }
 .blueone {
   border-collapse: collapse;
-  width: 600px;
+  width: 840px;
   
 }  
 .blueone th {
@@ -31,6 +31,13 @@ body { background: #fff; }
 }
 #size{
    width: 90px;
+   height: 40px;
+}
+#pad{
+	padding-right:280px;
+}
+#backsize{
+   width: 110px;
    height: 40px;
 }
 
@@ -70,8 +77,8 @@ body { background: #fff; }
 		function cancel(){
 			 var no = $('#rentalNo').val();
 			 var id = $('#userId').val();
-			 alert(no)
-			 alert(id)
+/* 			 alert(no)
+			 alert(id) */
 		     $.ajax({
 				url : "deleteMyRental.do",
 				type : "GET",
@@ -82,86 +89,14 @@ body { background: #fff; }
 				dataType: "text",
 				success : function(data){
 					alert("cancel?");
+					location.reload();
 				}
 			})
 		}
 		</script>
 </head>
 <body data-bs-spy="scroll" data-bs-target="#navbarExample">
-   <%
-   String USERID = (String) session.getAttribute("SessionUserID"); //정상적으로 로그인이 진행되면 USERID,USERPW에 값이 들어옴
-   String USERPW = (String) session.getAttribute("SessionUserPW");
-   %>
-   
-   <!-- Navigation -->
-        <nav id="navbarExample" class="navbar navbar-expand-lg fixed-top navbar-light" aria-label="Main navigation">
-            <div class="container">
-
-                <!-- Image Logo -->
-                <a class="navbar-brand logo-image" href="main.do"><img src="resources/images/logo.svg" alt="alternative"></a> 
-
-                <!-- Text Logo - Use this if you don't have a graphic logo -->
-                <!-- <a class="navbar-brand logo-text" href="index.html">Ioniq</a> -->
-
-                <button class="navbar-toggler p-0 border-0" type="button" id="navbarSideCollapse" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
-                    <ul class="navbar-nav ms-auto navbar-nav-scroll">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="main.do">HOME</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="main.do#features">ABOUT</a>
-                        </li>
-                        <%
-                              if (USERID != null && USERPW != null && (USERID.equals("ADMIN"))) { // 로그인이 됐을시
-                        %>
-                        <li class="nav-item">
-                            <a class="nav-link" href="main.do#details">RENT LIST</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="main.do#pricing">Q&A</a>
-                        </li>
-                        <span class="nav-item">
-                        	<a href="logout.do" class="btn-outline-sm" >Log out</a>
-                    	</span>
-                        <%
-                              }else if(USERID != null && USERPW != null){  // 사용자로그인
-                         %> 
-                        <li class="nav-item">
-                            <a class="nav-link" href="main.do#details">RENT UMBRELLA</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="main.do#pricing">Q&A</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="myPage.do">MYPAGE</a>
-                        </li>
-                        <span class="nav-item">
-                        	<a href="logout.do" class="btn-outline-sm" >Log out</a>
-                    	</span>
-                        <%
-                              } else{ //로그아웃상태
-                        %>
-                        <li class="nav-item">
-                            <a class="nav-link" href="main.do#details">RENT UMBRELLA</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="main.do#pricing">Q&A</a>
-                        </li>
-                        <span class="nav-item">
-                        	<a href="login.do" class="btn-outline-sm" >Log in</a>
-                    	</span>
-                    	<%
-                              }
-                        %>
-                    	</ul>
-                    </div>
-                 </div>
-              </nav>
-
+<jsp:include page="/WEB-INF/templates/header.jsp"></jsp:include>
 
  <!-- Header -->
         <header class="ex-header">
@@ -177,7 +112,7 @@ body { background: #fff; }
         
         
         <!-- Basic -->
-        <div class="ex-form-1 pt-5 pb-5">
+        <div class="ex-form-1 pt-5 pb-5" id="pad">
             <div class="container">
                 <div class="row">
                     <div class="col-xl-6 offset-xl-3">
@@ -194,7 +129,8 @@ body { background: #fff; }
                                 		<th scope="col">대여장소</th>
                                 		<th scope="col"><b>반납장소</b></th>
                                 		<th scope="col"><b>대여일자</b></th>
-                                		<th scope="col"><b>반납일자</b></th> 		
+                                		<th scope="col"><b>반납일자</b></th> 	
+                                		<th scope="col"></th>	
                                 	</tr>
                                 </thead>
                                 <tbody>
@@ -215,9 +151,9 @@ body { background: #fff; }
                                </table>
                         	</div> 
                            </form>	
-                            <p style="text-align: right; font-size: 13px; color: #FF6464"><b>※반납일자를 반드시 확인해주세요.</b></p>
+                            <p style="text-align: right; font-size: 17px; color: #282828"><b>※반납일자를 반드시 확인해주세요.</b></p>
                            <br>
-                           <input type="button" class="form-control-submit-button" onclick="location.href='myPage.do'" value="back">
+                           <input type="button" class="form-control-submit-button" onclick="location.href='myPage.do'" id="backsize" value="뒤로가기">
                             
                             
                             
@@ -300,23 +236,7 @@ body { background: #fff; }
             </div> <!-- end of container -->
         </div> <!-- end of copyright --> 
         <!-- end of copyright -->
-
-        <!-- Copyright -->
-        <div class="copyright">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <p class="p-small">Copyright © <a href="#your-link">Your name</a></p>
-                    </div> <!-- end of col -->
-                    <div class="col-lg-6">
-                        <p class="p-small">Distributed By<a href="https://themewagon.com/"> Themewagon</a></p>
-                    </div> <!-- end of col -->
-                </div> <!-- enf of row -->
-            </div> <!-- end of container -->
-        </div> <!-- end of copyright --> 
-        <!-- end of copyright -->
         
-
         <!-- Back To Top Button -->
         <button onclick="topFunction()" id="myBtn">
             <img src="resources/images/up-arrow.png" alt="alternative">

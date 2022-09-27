@@ -60,7 +60,7 @@
         				success : function(data){
         					if(data == "ok"){
         						alert("success")
-        						location = "main.do"
+        						location = "myrentList.do"
         					}else if(data == "fail"){
         						alert("대여 실패");
         					}
@@ -100,16 +100,17 @@
    String USERNAME = (String) session.getAttribute("SessionUserName");
    String USERPHONE = (String) session.getAttribute("SessionUserPhone");
 %>
+
         <!-- Header -->
         <header id="header" class="header">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="text-container">
-                            <h1 class="h1-large">Rendrella is <span class="replace-me">sharing service, convenience, quick response</span></h1>
+                            <h1 class="h1-large">Rendrella는 <span class="replace-me">우산 대여플랫폼, 학생 복지제공, 신속한 대응</span></h1>
                             <!-- <p class="p-large"></p> -->
                             <br><br><br>
-                            <a class="btn-solid-lg" href="signUp.do">Sign up for free</a>
+                            <a class="btn-solid-lg" href="main.do">문의사항</a>
                         </div> <!-- end of text-container -->
                     </div> <!-- end of col -->
                     <div class="col-lg-6"> 
@@ -195,36 +196,36 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-6 col-xl-5">        
-                        <h2>RENT UMBRELLA</h2>
-                            <p class="mb-4">Would you like to rent an umbrella? Then just Enter it now</p>
+                        <h2>우산대여</h2>
+                           <!--  <p class="mb-4">Would you like to rent an umbrella? Then just Enter it now</p> -->
 
                             <!-- Sign Up Form -->
                             <form>
                                 <div class="mb-4 form-floating">
                                     <input type="text" class="form-control" id="userId" name="userId"  placeholder="id" readonly>
-                                    <label for="floatingInput">Id</label>
+                                    <label for="floatingInput">아이디</label>
                                 </div>                                
                                 <div class="mb-4 form-floating">
                                     <input type="text" class="form-control" id="userName" name="userName"  placeholder="Your name" readonly>
-                                    <label for="floatingInput">Your name</label>
+                                    <label for="floatingInput">이름</label>
                                 </div>
                                 <div class="mb-4 form-floating">
                                     <input type="tel" class="form-control" id="userPhone" name="userPhone" placeholder="tel" readonly>
-                                    <label for="floatingInput">PhoneNumber</label>
+                                    <label for="floatingInput">전화번호</label>
                                 </div>
                                 <div class="mb-4 form-floating">
                                     <input type="text" class="form-control" id="rentalPlace" name="rentalPlace" placeholder="rentalPlace" readonly>
-                                    <label for="floatingInput">RentalPlace</label>
+                                    <label for="floatingInput">대여장소</label>
                                 </div>
                                 <div class="mb-4 form-floating">
                                     <input type="text" class="form-control" id="returnPlace" name="returnPlace" placeholder="returnPlace" readonly>
-                                    <label for="floatingInput">ReturnPlace</label>
+                                    <label for="floatingInput">반납장소</label>
                                 </div>
-                                <div class="mb-4 form-check">
+                                <!-- <div class="mb-4 form-check">
                                     <input type="checkbox" class="form-check-input" id="exampleCheck1">
                                     <label class="form-check-label" for="exampleCheck1">I agree with the site's stated <a href="privacy.html">Privacy Policy</a> and <a href="terms.html">Terms & Conditions</a></label>
-                                </div>
-                                <input type="button" class="form-control-submit-button" onclick="signUp()" value="signUp"/>
+                                </div> -->
+                                <input type="button" class="form-control-submit-button" onclick="location.href='login.do'" value="우산대여하기"/>
                             </form>
                             <!-- end of sign up form -->
                     </div> <!-- end of col -->
@@ -245,8 +246,8 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-6 col-xl-5">        
-                        <h2>RENT UMBRELLA</h2>
-                            <p class="mb-4">Would you like to rent an umbrella? Then just Enter it now</p>
+                        <h2>대여하기</h2>
+                           <!--  <p class="mb-4">Would you like to rent an umbrella? Then just Enter it now</p> -->
 
                             <!-- Sign Up Form -->
                             <form>
@@ -254,20 +255,20 @@
                                 <div class="mb-4 form-floating">
                                     <input type="text" class="form-control" id="userId" name="userId" placeholder="id" value="${SessionUserID}" readonly>
                                    <%--  <input type="hidden" id="userPw" name="userPw" value="${SessionUserPW}"> --%>
-                                    <label for="floatingInput">Id</label>
+                                    <label for="floatingInput">아이디</label>
                                 </div>                                
                                 <div class="mb-4 form-floating">
                                     <input type="text" class="form-control" id="userName" name="userName" placeholder="Your name" value="${SessionUserName}" readonly>
-                                    <label for="floatingInput">Your name</label>
+                                    <label for="floatingInput">이름</label>
                                 </div>
                                 <div class="mb-4 form-floating">
                                     <input type="tel" class="form-control" id="userPhone" name="userPhone" placeholder="tel" value="${SessionUserPhone}" readonly>
-                                    <label for="floatingInput">PhoneNumber</label>
+                                    <label for="floatingInput">전화번호</label>
                                 </div>
                                 <div class="mb-4 form-floating">
                                 	
                                     <input type="text" class="form-control" id="rentalDate" name="rentalDate" placeholder="rentalDate" autocomplete="off">
-                                    <label for="floatingInput">RentalDate</label>
+                                    <label for="floatingInput">대여날짜</label>
                                 </div>
                                 <div class="mb-4 form-floating">
                                	대여장소
@@ -309,54 +310,6 @@
         <!-- end of details 1 -->
         <%} %>
         
-        <!-- Details Modal -->
-        <div id="staticBackdrop" class="modal fade" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="row">
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        <div class="col-lg-8">
-                            <div class="image-container">
-                                <img class="img-fluid" src="resources/images/details-modal.jpg" alt="alternative">
-                            </div> <!-- end of image-container -->
-                        </div> <!-- end of col -->
-                        <div class="col-lg-4">
-                            <h3>Goals Setting</h3>
-                            <hr>
-                            <p>In gravida at nunc sodales pretium. Vivamus semper, odio vitae mattis auctor, elit elit semper magna ac tum nico vela spider</p>
-                            <h4>User Feedback</h4>
-                            <p>Sapien vitae eros. Praesent ut erat a tellus posuere nisi more thico cursus pharetra finibus posuere nisi. Vivamus feugiat</p>
-                            <ul class="list-unstyled li-space-lg">
-                                <li class="d-flex">
-                                    <i class="fas fa-chevron-right"></i>
-                                    <div class="flex-grow-1">Tincidunt sem vel brita bet mala</div>
-                                </li>
-                                <li class="d-flex">
-                                    <i class="fas fa-chevron-right"></i>
-                                    <div class="flex-grow-1">Sapien condimentum sacoz sil necr</div>
-                                </li>
-                                <li class="d-flex">
-                                    <i class="fas fa-chevron-right"></i>
-                                    <div class="flex-grow-1">Fusce interdum nec ravon fro urna</div>
-                                </li>
-                                <li class="d-flex">
-                                    <i class="fas fa-chevron-right"></i>
-                                    <div class="flex-grow-1">Integer pulvinar biolot bat tortor</div>
-                                </li>
-                                <li class="d-flex">
-                                    <i class="fas fa-chevron-right"></i>
-                                    <div class="flex-grow-1">Id ultricies fringilla fangor raq trinit</div>
-                                </li>
-                            </ul>
-                            <a id="modalCtaBtn" class="btn-solid-reg" href="#your-link">Details</a>
-                            <button type="button" class="btn-outline-reg" data-bs-dismiss="modal">Close</button>
-                        </div> <!-- end of col -->
-                    </div> <!-- end of row -->
-                </div> <!-- end of modal-content -->
-            </div> <!-- end of modal-dialog -->
-        </div> <!-- end of modal -->
-        <!-- end of details modal -->
-
 <hr>
         <!-- Testimonials -->
         <div class="slider-1 bg-gray">
@@ -369,6 +322,9 @@
                 <div class="row">
                     <div class="col-lg-12">
 
+						<br>
+						<br>
+						<br>
                         <!-- Card Slider -->
                         <div class="slider-container">
                             <div class="swiper-container card-slider">
@@ -380,7 +336,7 @@
                                             <img class="card-image" src="resources/images/aa.jfif" alt="alternative">
                                             <div class="card-body">
                                                 <p class="testimonial-text">본관</p>
-                                                <p class="testimonial-author">1층 우편실</p>
+                                                <p class="testimonial-author">3F 우편실</p>
                                             </div>
                                         </div>
                                     </div> <!-- end of swiper-slide -->
@@ -392,7 +348,7 @@
                                             <img class="card-image" src="resources/images/bb.jfif" alt="alternative">
                                             <div class="card-body">
                                                 <p class="testimonial-text">바우어관</p>
-                                                <p class="testimonial-author">1층 행정실</p>
+                                                <p class="testimonial-author">1F 행정실</p>
                                             </div>
                                         </div>        
                                     </div> <!-- end of swiper-slide -->
@@ -416,7 +372,7 @@
                                             <img class="card-image" src="resources/images/dd.jfif" alt="alternative">
                                             <div class="card-body">
                                                 <p class="testimonial-text">사회관</p>
-                                                <p class="testimonial-author">1층 행정실</p>
+                                                <p class="testimonial-author">1F 행정실</p>
                                             </div>
                                         </div>
                                     </div> <!-- end of swiper-slide -->
@@ -428,7 +384,7 @@
                                             <img class="card-image" src="resources/images/ee.jfif" alt="alternative">
                                             <div class="card-body">
                                                 <p class="testimonial-text">공학관</p>
-                                                <p class="testimonial-author">1층 행정실</p>
+                                                <p class="testimonial-author">1F 행정실</p>
                                             </div>
                                         </div>        
                                     </div> <!-- end of swiper-slide -->
@@ -459,7 +415,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <h4>Rendrella는 학생여러분들의 편의를 제공합니다.</h4>
-                        <a class="btn-outline-lg page-scroll" href="signUp.do">Sign up</a>
+                        <a class="btn-outline-lg page-scroll" href="#details">우산 대여바로가기</a>
                     </div> <!-- end of col -->
                 </div> <!-- end of row -->
             </div> <!-- end of container -->
