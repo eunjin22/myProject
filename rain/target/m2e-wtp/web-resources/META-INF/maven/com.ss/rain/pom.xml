@@ -191,6 +191,19 @@
 			<scope>provided</scope>
 		</dependency>
 
+		<!--QR 생성 -->
+		<dependency>
+    		<groupId>com.google.zxing</groupId>
+    		<artifactId>core</artifactId>
+    		<version>3.5.0</version>
+		</dependency>
+		
+		<!--QR 생성 -->
+		<dependency>
+   			<groupId>com.google.zxing</groupId>
+    		<artifactId>javase</artifactId>
+    		<version>3.5.0</version>
+		</dependency>
 		
 
 	</dependencies>

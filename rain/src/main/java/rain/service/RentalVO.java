@@ -16,9 +16,10 @@ public class RentalVO {
 	private String rentalPlace;
 	private String returnPlace;
 	private Date rentalDate;
+	private Date returnDate;
 	
 	public RentalVO(String userId, String userName, String userPhone, String rentalPlace, String returnPlace,
-			Date rentalDate) {
+			Date rentalDate, Date returnDate) {
 		super();
 		this.userId = userId;
 		this.userName = userName;
@@ -26,6 +27,7 @@ public class RentalVO {
 		this.rentalPlace = rentalPlace;
 		this.returnPlace = returnPlace;
 		this.rentalDate = rentalDate;
+		this.returnDate = returnDate;
 	}
 	
 	

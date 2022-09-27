@@ -130,9 +130,9 @@ public class UserController {
 	   }
 	   
 	   //내 대여내역조회
-		@RequestMapping(value="/myrentList.do")
-		public String myrentList() {
-			return "user/myrentList";
-		}
+//		@RequestMapping(value="/myrentList.do")
+//		public String myrentList() {
+//			return "user/myrentList";
+//		}
 	   
 }

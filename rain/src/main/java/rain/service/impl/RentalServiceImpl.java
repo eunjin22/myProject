@@ -31,8 +31,21 @@ public class RentalServiceImpl implements RentalService{
 
 	//본인 대여내역조회
 	@Override
-	public List<RentalVO> myrentalSelect(String userId) throws Exception {
-		return rentalDAO.myrentalSelect(userId);
+	public List<RentalVO> myrentalList(RentalVO rentalVO) throws Exception {
+		return rentalDAO.myrentalList(rentalVO);
+	}
+
+	//qr로 해당아이디 정보조회
+	@Override
+	public RentalVO findByQr(String userId) throws Exception {
+		return rentalDAO.findByQr(userId);
+	}
+
+	//본인대여 내역삭제
+	@Override
+	public void deleteMyRental(RentalVO rentalVO) throws Exception {
+		rentalDAO.deleteMyRental(rentalVO);
+		
 	}
 
 }

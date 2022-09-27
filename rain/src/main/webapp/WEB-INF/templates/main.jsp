@@ -71,7 +71,7 @@
         	}
         </script>
         <!-- Webpage Title -->
-        <title>은딘 웹페이지</title>
+        <title>EUNJIN_Rendrella </title>
         
         <!-- Styles -->
         <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
@@ -265,12 +265,14 @@
                                     <label for="floatingInput">PhoneNumber</label>
                                 </div>
                                 <div class="mb-4 form-floating">
+                                	
                                     <input type="text" class="form-control" id="rentalDate" name="rentalDate" placeholder="rentalDate" autocomplete="off">
                                     <label for="floatingInput">RentalDate</label>
                                 </div>
                                 <div class="mb-4 form-floating">
+                               	대여장소
                                     <label for="floatingInput"></label>
-                                    <select id="rentalPlace" name="rentalPlace" class="form-control" required>
+                                    <select id="rentalPlace" name="rentalPlace" class="form-control"  required>
                                     	<option value="">Rentalplace choice</option>
                                     	<option value="본관">본관</option>
                                     	<option value="의양관">의양관</option>
@@ -280,8 +282,9 @@
                                     </select>                                   
                                 </div>
                                 <div class="mb-4 form-floating">
+                                	반납장소
                                     <label for="floatingInput"></label>
-                                    <select id="returnPlace" name="returnPlace" class="form-control" required>
+                                    <select id="returnPlace" name="returnPlace" class="form-control"  required>
                                     	<option value="">Returnplace choice</option>
                                     	<option value="본관">본관</option>
                                     	<option value="의양관">의양관</option>
@@ -354,48 +357,13 @@
         </div> <!-- end of modal -->
         <!-- end of details modal -->
 
-
-        <!-- Details 2 -->
-        <div class="basic-2">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="image-container">
-                            <img class="img-fluid" src="resources/images/details-2.png" alt="alternative">
-                        </div> <!-- end of image-container -->
-                    </div> <!-- end of col -->
-                    <div class="col-lg-6">
-                        <div class="text-container">
-                            <h2>Anyone can start using the app with minimum skills</h2>
-                            <p>Velit dictum non proin egestas convallis nunc, eu auctor massa. Nam hendrerit, eros ut viverra lobortis, mauris nisi porta risus, placerat dignissim tellus auctor masse</p>
-                            <ul class="list-unstyled li-space-lg">
-                                <li class="d-flex">
-                                    <i class="fas fa-square"></i>
-                                    <div class="flex-grow-1">Fusce ipsum augue, ultrices rutrum est accel, pulvin</div>
-                                </li>
-                                <li class="d-flex">
-                                    <i class="fas fa-square"></i>
-                                    <div class="flex-grow-1">Fermentum elit. Vestibulum cursuso bibendum viverra</div>
-                                </li>
-                                <li class="d-flex">
-                                    <i class="fas fa-square"></i>
-                                    <div class="flex-grow-1">Quisque blandit pulvinar metus, eu sta malesuada</div>
-                                </li>
-                            </ul>
-                        </div> <!-- end of text-container -->
-                    </div> <!-- end of col -->
-                </div> <!-- end of row -->
-            </div> <!-- end of container -->
-        </div> <!-- end of basic-2 -->
-        <!-- end of details 2 -->
-
-
+<hr>
         <!-- Testimonials -->
         <div class="slider-1 bg-gray">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h2 class="h2-heading">Few words from our clients</h2>
+                        <h2 class="h2-heading">우산  대여·반납 장소</h2>
                     </div> <!-- end of col -->
                 </div> <!-- end of row -->
                 <div class="row">
@@ -409,10 +377,10 @@
                                     <!-- Slide -->
                                     <div class="swiper-slide">
                                         <div class="card">
-                                            <img class="card-image" src="resources/images/testimonial-1.jpg" alt="alternative">
+                                            <img class="card-image" src="resources/images/aa.jfif" alt="alternative">
                                             <div class="card-body">
-                                                <p class="testimonial-text">Tortor sodales eget. Vivamus imperdiet leo eu risus tincidunt uris. Proin placerat, urna hendrerit placerat erase convallis</p>
-                                                <p class="testimonial-author">Jude Thorn - Designer</p>
+                                                <p class="testimonial-text">본관</p>
+                                                <p class="testimonial-author">1층 우편실</p>
                                             </div>
                                         </div>
                                     </div> <!-- end of swiper-slide -->
@@ -421,10 +389,10 @@
                                     <!-- Slide -->
                                     <div class="swiper-slide">
                                         <div class="card">
-                                            <img class="card-image" src="resources/images/testimonial-2.jpg" alt="alternative">
+                                            <img class="card-image" src="resources/images/bb.jfif" alt="alternative">
                                             <div class="card-body">
-                                                <p class="testimonial-text">Eros volutpat ante mauris euismod sem, ut varius nisi lectus in urna. Integer luctus, nunc eget maximus intem, orci risus</p>
-                                                <p class="testimonial-author">Roy Smith - Developer</p>
+                                                <p class="testimonial-text">바우어관</p>
+                                                <p class="testimonial-author">1층 행정실</p>
                                             </div>
                                         </div>        
                                     </div> <!-- end of swiper-slide -->
@@ -433,10 +401,10 @@
                                     <!-- Slide -->
                                     <div class="swiper-slide">
                                         <div class="card">
-                                            <img class="card-image" src="resources/images/testimonial-3.jpg" alt="alternative">
+                                            <img class="card-image" src="resources/images/cc.jfif" alt="alternative">
                                             <div class="card-body">
-                                                <p class="testimonial-text">Sed congue ex quam, sit amet venenatis dolor lacinia vulputate. Nunc pulvinar ex ex, sit amet scelerisque tellus pretium semper</p>
-                                                <p class="testimonial-author">Marsha Singer - Marketer</p>
+                                                <p class="testimonial-text">의양관</p>
+                                                <p class="testimonial-author">B1 학생회실</p>
                                             </div>
                                         </div>        
                                     </div> <!-- end of swiper-slide -->
@@ -445,10 +413,10 @@
                                     <!-- Slide -->
                                     <div class="swiper-slide">
                                         <div class="card">
-                                            <img class="card-image" src="resources/images/testimonial-4.jpg" alt="alternative">
+                                            <img class="card-image" src="resources/images/dd.jfif" alt="alternative">
                                             <div class="card-body">
-                                                <p class="testimonial-text">Etiam est lorem, interdum non semper ut, bibendum vitae ante. Pellente sollicitun sagittis lectus. Aenean in comod</p>
-                                                <p class="testimonial-author">Tim Shaw - Designer</p>
+                                                <p class="testimonial-text">사회관</p>
+                                                <p class="testimonial-author">1층 행정실</p>
                                             </div>
                                         </div>
                                     </div> <!-- end of swiper-slide -->
@@ -457,26 +425,15 @@
                                     <!-- Slide -->
                                     <div class="swiper-slide">
                                         <div class="card">
-                                            <img class="card-image" src="resources/images/testimonial-5.jpg" alt="alternative">
+                                            <img class="card-image" src="resources/images/ee.jfif" alt="alternative">
                                             <div class="card-body">
-                                                <p class="testimonial-text">Quisque nec turpis placerat, accumsan lorem lobortis, vestibulum elit. Fusce finibus nisl varius semper elementum vivamus</p>
-                                                <p class="testimonial-author">Lindsay Spice - Marketer</p>
+                                                <p class="testimonial-text">공학관</p>
+                                                <p class="testimonial-author">1층 행정실</p>
                                             </div>
                                         </div>        
                                     </div> <!-- end of swiper-slide -->
                                     <!-- end of slide -->
-            
-                                    <!-- Slide -->
-                                    <div class="swiper-slide">
-                                        <div class="card">
-                                            <img class="card-image" src="resources/images/testimonial-6.jpg" alt="alternative">
-                                            <div class="card-body">
-                                                <p class="testimonial-text">Vulputate sed tellus nec, imperdiet luctus purus. Morbi lobortis massa a mi interdum condimentum. Integer non gravida nisi</p>
-                                                <p class="testimonial-author">Ann Blake - Developer</p>
-                                            </div>
-                                        </div>        
-                                    </div> <!-- end of swiper-slide -->
-                                    <!-- end of slide -->
+
                                 
                                 </div> <!-- end of swiper-wrapper -->
             
@@ -501,8 +458,8 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h4>Ioniq will change the way you think about CRM solutions due to it’s advanced tools and integrated functionalities</h4>
-                        <a class="btn-outline-lg page-scroll" href="sign-up.html">Sign up for free</a>
+                        <h4>Rendrella는 학생여러분들의 편의를 제공합니다.</h4>
+                        <a class="btn-outline-lg page-scroll" href="signUp.do">Sign up</a>
                     </div> <!-- end of col -->
                 </div> <!-- end of row -->
             </div> <!-- end of container -->
@@ -515,7 +472,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h2 class="h2-heading">Free forever tier and 2 pro plans</h2>
+                        <h2 class="h2-heading">Q&A 게시판</h2>
                     </div> <!-- end of col -->
                 </div> <!-- end of row -->
                 <div class="row">
@@ -589,59 +546,6 @@
             </div> <!-- end of container -->
         </div> <!-- end of cards-2 -->
         <!-- end of pricing -->
-
-
-        <!-- Questions -->
-        <div class="accordion-1">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <h2 class="h2-heading">Frequent questions</h2>
-                    </div> <!-- end of col -->
-                </div> <!-- end of row -->   
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="accordion" id="accordionExample">
-                            
-                            <!-- Accordion Item -->
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="headingOne">
-                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">How can I contact you quickly and get a reasonable quote more for my project?</button>
-                                </h2>
-                                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                                    <div class="accordion-body">Sed lacinia cursus viverra. Nunc sed libero euismod, congue dui a, vulputate quam. Pellentesque neque nisi, ultrices ut ipsum ac, mattis sollicitudin neque. Ut ac nunc sem. Etiam id erat facilisis magna sagittis porta. Donec eu dolor eu dolor finibus sodales consectetur, et condimentum elit tincidunt</div>
-                                </div>
-                            </div>
-                            <!-- end of accordion-item -->
-
-                            <!-- Accordion Item -->
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="headingTwo">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">Is the Free Tier available for unlimited time or it will end more words after a while?</button>
-                                </h2>
-                                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                                    <div class="accordion-body">Mauris faucibus placerat nisl. Sed eros odio, posuere at felis quis, tincidunt facilisis nibh. Nulla in ante sem. Nam aliquam urna nisi, cursus semper dolor convallis at. Duis vulputate est in consectetur, et condimentum elit tincidunt libero consectetur, et condimentum suis vulputate est in libero</div>
-                                </div>
-                            </div>
-                            <!-- end of accordion-item -->
-
-                            <!-- Accordion Item -->
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="headingThree">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">Can I use the app on mobile devices or it’s limited more words to desktop use?</button>
-                                </h2>
-                                <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-                                    <div class="accordion-body">Nullam at diam at mi facilisis consectetur at non turpis. Proin a felis nisi. Sed at orci rutrum, tincidunt magna vel, pharetra libero. Proin mauris orci, faucibus eget malesuada vel, consectetur, et condimentum elit tincidunt pellentesque vitae ligula. Pellentesque euismod tincidun</div>
-                                </div>
-                            </div>
-                            <!-- end of accordion-item -->
-
-                        </div> <!-- end of accordion -->
-                    </div> <!-- end of col -->
-                </div> <!-- end of row -->
-            </div> <!-- end of container -->
-        </div> <!-- end of accordion-1 -->
-        <!-- end of questions -->
 
 
         <!-- Footer -->

@@ -11,5 +11,11 @@ public interface RentalService {
 	int rentalCheck(RentalVO rentalVO) throws Exception;
 	
 	//본인 대여내역조회
-	List<RentalVO> myrentalSelect(String userId) throws Exception;
+	List<RentalVO> myrentalList(RentalVO rentalVO) throws Exception;
+	
+	//qr로 해당아이디 정보조회
+	RentalVO findByQr(String userId) throws Exception;
+	
+	//본인 대여내역삭제
+	void deleteMyRental(RentalVO rentalVO) throws Exception;
 }

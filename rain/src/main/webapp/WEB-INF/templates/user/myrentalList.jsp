@@ -7,6 +7,34 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style>  
+body { background: #fff; }
+.blueone {
+  border-collapse: collapse;
+  width: 600px;
+  
+}  
+.blueone th {
+  padding: 10px;
+  color: #168;
+  border-bottom: 3px solid #168;
+  text-align: left;
+  font-size: 20px;
+}
+.blueone td {
+  color: #669;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+.blueone tr:hover td {
+  color: #004;
+}
+#size{
+   width: 90px;
+   height: 40px;
+}
+
+</style>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         
@@ -35,6 +63,29 @@
         
         <!-- Favicon  -->
         <link rel="icon" href="resources/images/favicon.png">
+        
+        <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+        <script type="text/javascript">
+        
+		function cancel(){
+			 var no = $('#rentalNo').val();
+			 var id = $('#userId').val();
+			 alert(no)
+			 alert(id)
+		     $.ajax({
+				url : "deleteMyRental.do",
+				type : "GET",
+				data: {	
+					rentalNo : no,
+					userId : id
+				},
+				dataType: "text",
+				success : function(data){
+					alert("cancel?");
+				}
+			})
+		}
+		</script>
 </head>
 <body data-bs-spy="scroll" data-bs-target="#navbarExample">
    <%
@@ -131,32 +182,46 @@
                 <div class="row">
                     <div class="col-xl-6 offset-xl-3">
                         <div class="text-box mt-5 mb-5">
-                            <p class="mb-4"> <b></b><a class="blue" style="font-size:2.0em; font-weight: bold;" href="main.do">QR</a></b></p> 
+                             
 
                             <!-- Sign Up Form -->
-                            <c:forEach var="rental" items="${rentalList}">
                             <form>
-                                <div class="mb-4 form-floating"> 
-                                    <input type="text" class="form-control" id="rentalPlace" name="rentalPlace" value="${rental.rentalPlace}" readonly>
-                                    <label for="floatingInput">rentalPlace</label>                          
-                                </div>
-                                <div class="mb-4 form-floating">
-                                    <input type="password" class="form-control" id="returnPlace" name="returnPlace" value="${rental.returnPlace}" readonly>
-                                    <label for="floatingPassword">returnPlace</label>
-                                    
-                                </div>
-                                <div class="mb-4 form-floating">
-                                    <input type="text" class="form-control" id="rentalDate" name="rentalDate" value="${rental.rentalDate}" readonly>
-                                    <label for="floatingInput">rentalDate</label>
-                                </div>
-                                <div class="mb-4 form-floating">
-                                    <input type="tel" class="form-control" id="returnDate" name="returnDate" value="${rental.returnDatee}" readonly>
-                                    <label for="floatingInput">returnDate</label>
-                                </div>
-                                <input type="button" class="form-control-submit-button" onclick="location.href='myPage.do'" value="back">
-                             
-                            </form>
-                            </c:forEach>
+                            <div class = "mb-4 form-floating">
+                               <table class="blueone"> 
+                               <p class="mb-4"> <b></b><a class="blue" style="font-size:1.7em; font-weight: bold;" href="qr.do">QR</a></b></p>
+                                <thead>
+                                	<tr>
+                                		<th scope="col">대여장소</th>
+                                		<th scope="col"><b>반납장소</b></th>
+                                		<th scope="col"><b>대여일자</b></th>
+                                		<th scope="col"><b>반납일자</b></th> 		
+                                	</tr>
+                                </thead>
+                                <tbody>
+                                <c:forEach var="rental" items="${myrentalList}"> 
+                                	<tr>
+                                		<td>${rental.rentalPlace}</td> 
+                                		<td>${rental.returnPlace}</td>
+                                		<td><fmt:formatDate value="${rental.rentalDate}" pattern="yyyy-MM-dd" /></td>
+                                		<td><fmt:formatDate value="${rental.returnDate}" pattern="yyyy-MM-dd" /></td>
+                                		<td><input type = "button" class="form-control-submit-button" 
+                                			onclick="cancel()" value="cancel" id="size"></td>
+                                		<td><input type ="hidden" id="rentalNo" name="rentalNo" value="${rental.rentalNo}"></td>
+                                		<td><input type ="hidden" id="userId" name="userId" value="${SessionUserID}"></td>
+                                	</tr>
+                                	
+                                </c:forEach>
+                                </tbody>
+                               </table>
+                        	</div> 
+                           </form>	
+                            <p style="text-align: right; font-size: 13px; color: #FF6464"><b>※반납일자를 반드시 확인해주세요.</b></p>
+                           <br>
+                           <input type="button" class="form-control-submit-button" onclick="location.href='myPage.do'" value="back">
+                            
+                            
+                            
+                            
                             <!-- end of sign up form -->
  
                       </div>  <!-- end of text-box  -->

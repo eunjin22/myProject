@@ -131,7 +131,7 @@
                             <div class="mb-4"> 
                             <!-- <b></b><a class="blue" style="font-size:2.0em; font-weight: bold; display:inline-flex;" href="main.do">QR</a> -->
                            
-							<b></b><a style="font-size:2.0em; font-weight: bold; display:inline-flex;" href="myrentList.do">대여내역</a>
+							<b></b><a class="blue" style="font-size:1.7em; font-weight: bold; display:inline-flex;" href="myrentList.do">대여내역</a>
 							</div> 
                             <!-- Sign Up Form -->
                             <form>
@@ -152,10 +152,7 @@
                                     <input type="tel" class="form-control" id="userPhone" name="userPhone" placeholder="tel" value="${user.userPhone}" readonly>
                                     <label for="floatingInput">PhoneNumber</label>
                                 </div>
-                                <div class="mb-4 form-check">
-                                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                    <label class="form-check-label" for="exampleCheck1">I agree with the site's stated <a href="privacy.html">Privacy Policy</a> and <a href="terms.html">Terms & Conditions</a></label>
-                                </div>
+                                
                                 <input type="button" class="form-control-submit-button" onclick="location.href='main.do'" value="save">
                             </form>
                             <!-- end of sign up form -->

@@ -10,7 +10,7 @@
 		<result property="rentalPlace" column="rentalPlace"/>
 		<result property="returnPlace" column="returnPlace"/>
 		<result property="rentalDate" column="rentalDate"/>
-		<result property="rentalDate" column="returnDate"/>
+		<result property="returnDate" column="returnDate"/>
 	</resultMap>
 
 	<!--대여 신청  -->
@@ -34,12 +34,19 @@
 	</select>
 	
 	<!-- 본인 대여내역조회  -->
-	<select id="myrentalSelect" resultMap="rentalResult">
-		SELECT * FROM um_rental WHERE userId = #{userId} ORDER BY rentalDate
+	<select id="myrentalList" resultMap="rentalResult">
+		SELECT * FROM um_rental WHERE userId = #{userId} ORDER BY rentalNo DESC
 	</select>
 	
+	<!-- qr찍었을때 해당 id의 정보를 가져옴 -->
+	<select id="findByQr">
+		SELECT * FROM um_rental WHERE userId = #{userId}
+	</select>
 
-
+	<!-- 본인 예약내역취소  -->
+	<delete id="deleteMyRental">
+		DELETE FROM um_rental where userId = #{userId} and rentalNo = #{rentalNo}
+	</delete>
 </mapper>
 
 	
