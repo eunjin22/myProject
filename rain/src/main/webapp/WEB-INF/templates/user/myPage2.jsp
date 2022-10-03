@@ -56,7 +56,7 @@
          var top = (window.screen.height/4);
            
          var windowStatus = 'width='+width+', height='+height+', left='+left+', top='+top+', scrollbars=yes, status=yes, resizable=yes, titlebar=yes';
-         const url = "https://9912-220-122-16-168.ngrok.io/rain/pw.do";
+         const url = "http://localhost:8800/rain/pw.do";
          window.open(url, "변경", windowStatus);
        }
  } 
@@ -77,7 +77,7 @@
           var top = (window.screen.height/4);
             
           var windowStatus = 'width='+width+', height='+height+', left='+left+', top='+top+', scrollbars=yes, status=yes, resizable=yes, titlebar=yes';
-          const url = "https://9912-220-122-16-168.ngrok.io/rain/phone.do";
+          const url = "http://localhost:8800/rain/phone.do";
           window.open(url, "변경", windowStatus);
         }
      }

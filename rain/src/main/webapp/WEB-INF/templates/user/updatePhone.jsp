@@ -56,7 +56,7 @@
 		               dataType : "text",
 		               success : function(data){
 		                  alert("변경되었습니다.")
-		                  opener.parent.location="https://9912-220-122-16-168.ngrok.io/rain/myPage2.do";
+		                  opener.parent.location="http://localhost:8800/rain/myPage2.do";
 		                  self.close();
 		            },
 		               error : function(){

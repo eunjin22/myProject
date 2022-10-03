@@ -124,11 +124,11 @@ body { background: #fff; }
  			var width = 420;
 	        var height = 700;
 	        
-	        var left = (window.screen.width/2) - (width/2);          
+	        var left = (window.screen.width/2) - (width/2);            
 	        var top = (window.screen.height/4);
 	          
 	        var windowStatus = 'width='+width+', height='+height+', left='+left+', top='+top+', scrollbars=yes, status=yes, resizable=yes, titlebar=yes';
-	        const url = "https://9912-220-122-16-168.ngrok.io/rain/rplace.do";
+	        const url = "http://localhost:8800/rain/rplace.do";
 	       
 	        $.ajax({
 	        	url: 'rplace.do',

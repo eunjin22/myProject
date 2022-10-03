@@ -140,16 +140,19 @@ body { background: #fff; }
                                <table class="blueone"> 
                                 <thead>
                                 	<tr>
+                                		<th scope="col">번호</th>
                                 		<th scope="col"><b>제목</b></th>
-                                		<th scope="col">내용</th>
+                                		<th scope="col">아이디</th>
+                                		<!-- <th scope="col">내용</th> -->
                                 		<th scope="col"><b>게시날짜</b></th>                 		
                                 	</tr>
                                 </thead>
                                 <tbody>
                                 <c:forEach var="board" items="${myBoardList}"> 
                                 	<tr> 
+                                		<td align=center>${board.boardNo}</td> 
                                 		<td align=center><a href="viewForm.do?boardNo=${board.boardNo}">${board.title}</a></td> 
-                                		<td align=center>${board.content}</td> 
+                                		<td align=center>${board.userId}</td>  
                                 		<td align=center><fmt:formatDate value="${board.createDate}" pattern="yyyy-MM-dd" /></td>
                                 	</tr>
                                 	
