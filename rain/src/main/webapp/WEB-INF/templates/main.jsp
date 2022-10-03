@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -31,9 +32,10 @@
         		var id = $('#userId').val();
         		var name = $('#userName').val();
         		var phone = $('#userPhone').val();
-        		var renDate = $('#rentalDate').val();
         		var renPlace = $('#rentalPlace').val();
         		var retPlace = $('#returnPlace').val();
+        		var umCnt = $('#umbrellaCnt').val();
+        		var renDate = $('#rentalDate').val();
         		var retDate = $('#returnDate').val();
         		
         		
@@ -41,6 +43,8 @@
         			alert("대여날짜를 선택하세요.")
         		}else if(renPlace == ""){
         			alert("대여지점을 선택하세요.")
+        		}else if(umCnt ==""){
+        			alert("우산갯수를 선택하세요.")
         		}else if(retPlace == ""){
         			alert("반납지점을 선택하세요.")
         		}else{	
@@ -54,15 +58,16 @@
         					userPhone : phone,
         					rentalPlace : renPlace,
         					returnPlace : retPlace,
+        					umbrellaCnt : umCnt,
         					rentalDate : renDate,
         					returnDate : retDate
         				},
         				success : function(data){
         					if(data == "ok"){
-        						alert("success")
+        						alert("대여되었습니다.")
         						location = "myrentList.do"
         					}else if(data == "fail"){
-        						alert("대여 실패");
+        						alert("대여가능한 우산이 없습니다.  다른 장소를 선택하세요.");
         					}
         				}
         			});
@@ -91,6 +96,16 @@
 		<script src="./datepicker/js/datepicker.ko.js"></script>
         <!-- Favicon  -->
         <link rel="icon" href="resources/images/favicon.png">
+        <style>
+        #aa{
+        	height:500px;
+        }
+        #img{
+        	width:300px;
+        	height:350px;
+        	border-radius: 40px 80px;
+        }
+        </style>
     </head>  
     <body> 
     <jsp:include page="/WEB-INF/templates/header.jsp"></jsp:include>
@@ -110,7 +125,7 @@
                             <h1 class="h1-large">Rendrella는 <span class="replace-me">우산 대여플랫폼, 학생 복지제공, 신속한 대응</span></h1>
                             <!-- <p class="p-large"></p> -->
                             <br><br><br>
-                            <a class="btn-solid-lg" href="main.do">문의사항</a>
+                            <a class="btn-solid-lg" href="main.do#features">문의사항</a>
                         </div> <!-- end of text-container -->
                     </div> <!-- end of col -->
                     <div class="col-lg-6"> 
@@ -123,7 +138,7 @@
         </header> <!-- end of header -->
         <!-- end of header -->
 
-
+<br><br><br>
         <!-- Features -->
         <div id="features" class="cards-1">
             <div class="container">
@@ -145,28 +160,12 @@
                             <br>
                                 <h4 class="card-title">대여/반납</h4>
                                 <p>의양관, 사회관, 공학관, 바우어관, 본관 <br> 5군데에서 대여/반납이 가능합니다.<br>
-                                	배치가 되었으면 하는 공간이 <br>있다면 문의사항을 남겨주세요.</p>
+                                	각 공간 당 20개의 우산이  <br>배치되어있습니다.</p>
                             </div>
                         </div>
                         <!-- end of card -->
 
-                        <!-- Card -->
-                        <div class="card">
-                            <div>
-                             <img src ="resources/images/QR.png">
-                                <span></span>
-                            </div>
-                            <div class="card-body">
-                            <br>
-                                <h4 class="card-title">QR인증</h4>
-                                <p>대여와 반납시에 QR인증을 해야합니다.<br>
-                                	반납시 QR인증을 하지 않으면 위약처리<br>
-                                	되는 점 참고해주세요.</p>
-                            </div>
-                        </div>
-                        <!-- end of card -->
-
-                        <!-- Card -->
+ 						<!-- Card -->
                         <div class="card">
                             <div>
                             <img src ="resources/images/money.png">
@@ -180,6 +179,23 @@
                                 	위약시 반환안되는점 참고해주세요. </p>
                             </div>
                         </div>
+                        <!-- Card -->
+                        <div class="card">
+                            <div>
+                             <img src ="resources/images/phone.png">
+                                <span></span>
+                            </div>
+                            <div class="card-body">
+                            <br>
+                                <h4 class="card-title">문의사항</h4>
+                                <p>대여, 취소와 관련하여 문의사항이 있을시.<br>
+                                	위의 전화번호로 연락주시면 됩니다.<br>
+                                	<h6><b>010-4598-1524</b></h6></p>
+                            </div>
+                        </div>
+                        <!-- end of card -->
+
+                       
                         <!-- end of card -->
 
                     </div> <!-- end of col -->
@@ -187,57 +203,30 @@
             </div> <!-- end of container -->
         </div> <!-- end of cards-1 -->
         <!-- end of services -->
-
 <%
 	if(USERID == null && USERPW == null){
 %>
-        <!-- Details 1 -->
-        <div id="details" class="basic-1 bg-gray">
+        <!-- Invitation -->
+       <div id="details" >
+        <div class="basic-3" id="aa">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-6 col-xl-5">        
-                        <h2>우산대여</h2>
-                           <!--  <p class="mb-4">Would you like to rent an umbrella? Then just Enter it now</p> -->
-
-                            <!-- Sign Up Form -->
-                            <form>
-                                <div class="mb-4 form-floating">
-                                    <input type="text" class="form-control" id="userId" name="userId"  placeholder="id" readonly>
-                                    <label for="floatingInput">아이디</label>
-                                </div>                                
-                                <div class="mb-4 form-floating">
-                                    <input type="text" class="form-control" id="userName" name="userName"  placeholder="Your name" readonly>
-                                    <label for="floatingInput">이름</label>
-                                </div>
-                                <div class="mb-4 form-floating">
-                                    <input type="tel" class="form-control" id="userPhone" name="userPhone" placeholder="tel" readonly>
-                                    <label for="floatingInput">전화번호</label>
-                                </div>
-                                <div class="mb-4 form-floating">
-                                    <input type="text" class="form-control" id="rentalPlace" name="rentalPlace" placeholder="rentalPlace" readonly>
-                                    <label for="floatingInput">대여장소</label>
-                                </div>
-                                <div class="mb-4 form-floating">
-                                    <input type="text" class="form-control" id="returnPlace" name="returnPlace" placeholder="returnPlace" readonly>
-                                    <label for="floatingInput">반납장소</label>
-                                </div>
-                                <!-- <div class="mb-4 form-check">
-                                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                    <label class="form-check-label" for="exampleCheck1">I agree with the site's stated <a href="privacy.html">Privacy Policy</a> and <a href="terms.html">Terms & Conditions</a></label>
-                                </div> -->
-                                <input type="button" class="form-control-submit-button" onclick="location.href='login.do'" value="우산대여하기"/>
-                            </form>
-                            <!-- end of sign up form -->
-                    </div> <!-- end of col -->
-                    <div class="col-lg-6 col-xl-7">
-                        <div class="image-container">
-                            <img src="resources/images/rains.png" style="width:820px; height:700px;" alt="alternative">
-                        </div> <!-- end of image-container -->
+                    <div class="col-lg-12">
+                        <h4>우산대여는 로그인후 사용가능합니다.</h4>
+                        <a class="btn-outline-lg page-scroll" href="login.do">로그인 하러가기</a>
                     </div> <!-- end of col -->
                 </div> <!-- end of row -->
             </div> <!-- end of container -->
-        </div> <!-- end of basic-1 -->
-        <!-- end of details 1 -->
+        </div> <!-- end of basic-3 -->
+       </div>
+        <!-- end of invitation -->
+        
+<%
+   }else if(USERID != null && USERPW != null && (USERID.equals("ADMIN"))){ 
+%>
+
+
+
 <%
 	}else if(USERID != null && USERPW != null){
 %>
@@ -251,10 +240,8 @@
 
                             <!-- Sign Up Form -->
                             <form>
-                            
                                 <div class="mb-4 form-floating">
                                     <input type="text" class="form-control" id="userId" name="userId" placeholder="id" value="${SessionUserID}" readonly>
-                                   <%--  <input type="hidden" id="userPw" name="userPw" value="${SessionUserPW}"> --%>
                                     <label for="floatingInput">아이디</label>
                                 </div>                                
                                 <div class="mb-4 form-floating">
@@ -270,23 +257,37 @@
                                     <input type="text" class="form-control" id="rentalDate" name="rentalDate" placeholder="rentalDate" autocomplete="off">
                                     <label for="floatingInput">대여날짜</label>
                                 </div>
+                                
                                 <div class="mb-4 form-floating">
                                	대여장소
                                     <label for="floatingInput"></label>
                                     <select id="rentalPlace" name="rentalPlace" class="form-control"  required>
-                                    	<option value="">Rentalplace choice</option>
-                                    	<option value="본관">본관</option>
-                                    	<option value="의양관">의양관</option>
-                                    	<option value="사회관">사회관</option>
-                                    	<option value="공학관">공학관</option>
-                                    	<option value="바우어관">바우어관</option>
+                                  		  <option value="">대여장소 선택</option>
+	                                    <c:forEach var="total" items="${totalCount}">
+	                                    	<c:if test = "${total.umbrellaTotalCount ne 0}">
+	                                    		<option value="${total.rentalPlace}">${total.rentalPlace}:남은개수(${total.umbrellaTotalCount})</option>
+	                                    	</c:if>
+	                                    	<c:if test = "${total.umbrellaTotalCount eq 0}">
+	                                    		<option value="${total.rentalPlace}">${total.rentalPlace}:재고없음</option>
+	                                    	</c:if>
+	                                    </c:forEach>	
+                                    </select>                                   
+                                </div>
+                                <div class="mb-4 form-floating">
+                               	대여갯수
+                                    <label for="floatingInput"></label>
+                                    <select id="umbrellaCnt" name="umbrellaCnt" class="form-control"  required>
+                                    	<option value="">우산개수 선택</option>
+                                    	<option value="1">1</option>
+                                    	<option value="2">2</option>
+                                    	<option value="3">3</option>
                                     </select>                                   
                                 </div>
                                 <div class="mb-4 form-floating">
                                 	반납장소
                                     <label for="floatingInput"></label>
                                     <select id="returnPlace" name="returnPlace" class="form-control"  required>
-                                    	<option value="">Returnplace choice</option>
+                                    	<option value="">반납장소 선택</option>
                                     	<option value="본관">본관</option>
                                     	<option value="의양관">의양관</option>
                                     	<option value="사회관">사회관</option>
@@ -296,6 +297,7 @@
                                 </div>
                                 
                                 <input type="button" class="form-control-submit-button" onclick="rental()" value="대여하기"/>
+                           	
                             </form>
                             <!-- end of sign up form -->
                     </div> <!-- end of col -->
@@ -310,9 +312,8 @@
         <!-- end of details 1 -->
         <%} %>
         
-<hr>
-        <!-- Testimonials -->
-        <div class="slider-1 bg-gray">
+  <!-- Testimonials -->
+        <div id="place" class="slider-1 bg-gray">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
@@ -333,7 +334,7 @@
                                     <!-- Slide -->
                                     <div class="swiper-slide">
                                         <div class="card">
-                                            <img class="card-image" src="resources/images/aa.jfif" alt="alternative">
+                                            <img src="resources/images/aa.jfif" alt="alternative" id="img">
                                             <div class="card-body">
                                                 <p class="testimonial-text">본관</p>
                                                 <p class="testimonial-author">3F 우편실</p>
@@ -345,7 +346,7 @@
                                     <!-- Slide -->
                                     <div class="swiper-slide">
                                         <div class="card">
-                                            <img class="card-image" src="resources/images/bb.jfif" alt="alternative">
+                                            <img src="resources/images/bb.jfif" alt="alternative" id="img">
                                             <div class="card-body">
                                                 <p class="testimonial-text">바우어관</p>
                                                 <p class="testimonial-author">1F 행정실</p>
@@ -357,7 +358,7 @@
                                     <!-- Slide -->
                                     <div class="swiper-slide">
                                         <div class="card">
-                                            <img class="card-image" src="resources/images/cc.jfif" alt="alternative">
+                                            <img src="resources/images/cc.jfif" alt="alternative" id="img">
                                             <div class="card-body">
                                                 <p class="testimonial-text">의양관</p>
                                                 <p class="testimonial-author">B1 학생회실</p>
@@ -369,7 +370,7 @@
                                     <!-- Slide -->
                                     <div class="swiper-slide">
                                         <div class="card">
-                                            <img class="card-image" src="resources/images/dd.jfif" alt="alternative">
+                                            <img src="resources/images/dd.jfif" alt="alternative" id="img">
                                             <div class="card-body">
                                                 <p class="testimonial-text">사회관</p>
                                                 <p class="testimonial-author">1F 행정실</p>
@@ -381,7 +382,7 @@
                                     <!-- Slide -->
                                     <div class="swiper-slide">
                                         <div class="card">
-                                            <img class="card-image" src="resources/images/ee.jfif" alt="alternative">
+                                            <img src="resources/images/ee.jfif" alt="alternative" id="img">
                                             <div class="card-body">
                                                 <p class="testimonial-text">공학관</p>
                                                 <p class="testimonial-author">1F 행정실</p>
@@ -407,166 +408,21 @@
             </div> <!-- end of container -->
         </div> <!-- end of slider-1 -->
         <!-- end of testimonials -->
-
-
-        <!-- Invitation -->
-        <div class="basic-3">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <h4>Rendrella는 학생여러분들의 편의를 제공합니다.</h4>
-                        <a class="btn-outline-lg page-scroll" href="#details">우산 대여바로가기</a>
-                    </div> <!-- end of col -->
-                </div> <!-- end of row -->
-            </div> <!-- end of container -->
-        </div> <!-- end of basic-3 -->
-        <!-- end of invitation -->
-
-
-        <!-- Pricing -->
-        <div id="pricing" class="cards-2 bg-gray">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <h2 class="h2-heading">Q&A 게시판</h2>
-                    </div> <!-- end of col -->
-                </div> <!-- end of row -->
-                <div class="row">
-                    <div class="col-lg-12">
-                        
-                        <!-- Card -->
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="card-title">
-                                    <img class="decoration-lines" src="resources/images/decoration-lines.svg" alt="alternative"><span>Free tier</span><img class="decoration-lines flipped" src="images/decoration-lines.svg" alt="alternative">
-                                </div>
-                                <ul class="list-unstyled li-space-lg">
-                                    <li>Fusce pulvinar eu mi acm</li>
-                                    <li>Curabitur consequat nisl bro</li>
-                                    <li>Reget facilisis molestie</li>
-                                    <li>Vivamus vitae sem in tortor</li>
-                                    <li>Pharetra vehicula ornares</li>
-                                    <li>Vivamus dignissim sit amet</li>
-                                    <li>Ut convallis aliquama set</li>
-                                </ul>
-                                <div class="price">Free</div>
-                                <a href="sign-up.html" class="btn-solid-reg">Sign up</a>
-                            </div>
-                        </div>
-                        <!-- end of card -->
-
-                        <!-- Card -->
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="card-title">
-                                    <img class="decoration-lines" src="resources/images/decoration-lines.svg" alt="alternative"><span>Advanced</span><img class="decoration-lines flipped" src="images/decoration-lines.svg" alt="alternative">
-                                </div>
-                                <ul class="list-unstyled li-space-lg">
-                                    <li>Nunc commodo magna quis</li>
-                                    <li>Lacus fermentum tincidunt</li>
-                                    <li>Nullam lobortis porta diam</li>
-                                    <li>Announcing of invita mro</li>
-                                    <li>Dictum metus placerat luctus</li>
-                                    <li>Sed laoreet blandit mollis</li>
-                                    <li>Mauris non luctus est</li>
-                                </ul>
-                                <div class="price">$19<span>/month</span></div>
-                                <a href="sign-up.html" class="btn-solid-reg">Sign up</a>
-                            </div>
-                        </div>
-                        <!-- end of card -->
-
-                        <!-- Card -->
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="card-title">
-                                    <img class="decoration-lines" src="resources/images/decoration-lines.svg" alt="alternative"><span>Professional</span><img class="decoration-lines flipped" src="images/decoration-lines.svg" alt="alternative">
-                                </div>
-                                <ul class="list-unstyled li-space-lg">
-                                    <li>Quisque rutrum mattis</li>
-                                    <li>Quisque tristique cursus lacus</li>
-                                    <li>Interdum sollicitudin maec</li>
-                                    <li>Quam posuerei pellentesque</li>
-                                    <li>Est neco gravida turpis integer</li>
-                                    <li>Mollis felis. Integer id quam</li>
-                                    <li>Id tellus hendrerit lacinia</li>
-                                </ul>
-                                <div class="price">$29<span>/month</span></div>
-                                <a href="sign-up.html" class="btn-solid-reg">Sign up</a>
-                            </div>
-                        </div>
-                        <!-- end of card -->
-
-                    </div> <!-- end of col -->
-                </div> <!-- end of row -->
-            </div> <!-- end of container -->
-        </div> <!-- end of cards-2 -->
-        <!-- end of pricing -->
-
-
-        <!-- Footer -->
-        <div class="footer">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="footer-col first">
-                            <h6>About Website</h6>
-                            <p class="p-small">학교 안에서 자유롭게 대여가능한 RENDRELLA, <br> 지금 바로 만나보세요! <br>
-                            	본관, 의양관, 사회관, 공학관,<br>바우어관, 본관에서 만나요~*^^*
-                            </p>
-                        </div> <!-- end of footer-col -->
-                        <div class="footer-col second">
-                            <h6>Links</h6>
-                            <ul class="list-unstyled li-space-lg p-small">
-                                <li>Important: <a href="terms.html">Terms & Conditions</a>, <a href="privacy.html">Privacy Policy</a></li>
-                                <li>Useful: <a href="#">Colorpicker</a>, <a href="#">Icon Library</a>, <a href="#">Illustrations</a></li>
-                                <li>Menu: <a href="#header">Home</a>, <a href="#features">Features</a>, <a href="#details">Details</a>, <a href="#pricing">Pricing</a></li>
-                            </ul>
-                        </div> <!-- end of footer-col -->
-                        <div class="footer-col third">
-                            <span class="fa-stack">
-                                <a href="#your-link">
-                                    <i class="fas fa-circle fa-stack-2x"></i>
-                                    <i class="fab fa-facebook-f fa-stack-1x"></i>
-                                </a>
-                            </span>
-                            <span class="fa-stack">
-                                <a href="#your-link">
-                                    <i class="fas fa-circle fa-stack-2x"></i>
-                                    <i class="fab fa-twitter fa-stack-1x"></i>
-                                </a>
-                            </span>
-                            <span class="fa-stack">
-                                <a href="#your-link">
-                                    <i class="fas fa-circle fa-stack-2x"></i>
-                                    <i class="fab fa-pinterest-p fa-stack-1x"></i>
-                                </a>
-                            </span>
-                            <span class="fa-stack">
-                                <a href="#your-link">
-                                    <i class="fas fa-circle fa-stack-2x"></i>
-                                    <i class="fab fa-instagram fa-stack-1x"></i>
-                                </a>
-                            </span>
-                            <p class="p-small">Quam posuerei pellent esque university <a href="mailto:contact@site.com"><strong>contact@site.com</strong></a></p>
-                        </div> <!-- end of footer-col -->
-                    </div> <!-- end of col -->
-                </div> <!-- end of row -->
-            </div> <!-- end of container -->
-        </div> <!-- end of footer -->  
-        <!-- end of footer -->
-
    
         <!-- Copyright -->
         <div class="copyright">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-6">
-                        <p class="p-small">Copyright © <a href="#your-link">RENDRELLA</a></p>
+                    <br><br>
+                        <p class="p-small">Contact  :  <a href="#your-link">010-4598-1524</a></p>
                     </div> <!-- end of col -->
 
+
+					
                     <div class="col-lg-6">
-                        <p class="p-small">RENT By<a href="https://themewagon.com/">UNIVERSITY</a></p>    
+                     <br><br>
+                        <p class="p-small">RENT By &nbsp;UNIVERSITY</p>    
                     </div> <!-- end of col -->
                 </div> <!-- enf of row -->
             </div> <!-- end of container -->

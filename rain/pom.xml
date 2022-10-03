@@ -125,6 +125,34 @@
 			<artifactId>hsqldb</artifactId>
 			<version>2.5.0</version>
 		</dependency>
+		
+		  <!-- JACKSON -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.9.5</version>
+        </dependency>
+		
+        <!-- httpcore -->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpcore</artifactId>
+            <version>4.4.6</version>
+        </dependency>
+ 
+        <!-- httpclient -->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.2</version>
+        </dependency>
+        
+		<!-- Pull in as a traditional dependency -->
+		<dependency>
+		    <groupId>com.konghq</groupId>
+		    <artifactId>unirest-java</artifactId>
+		    <version>3.7.04</version>
+		</dependency>
 
 
 		<!-- mysql이나 oracle DB 사용시 아래 설정 추가 <dependency> <groupId>com.googlecode.log4jdbc</groupId> 

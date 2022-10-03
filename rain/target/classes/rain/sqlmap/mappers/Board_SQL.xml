@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="rain.sqlmap.mappers.Board_SQL">
+
+	<resultMap type="board" id="boardResult">
+		<result property="boardNo" column="boardNo" />
+		<result property="userId" column="userId" />
+		<result property="title" column="title" />
+		<result property="content" column="content" />
+		<result property="createDate" column="createDate" />
+	</resultMap>
+
+	<!-- 게시글 등록 -->
+	<insert id="insertBoard" parameterType="rain.service.BoardVO">
+		INSERT INTO um_board(userId, title, content, createDate) values(
+		#{userId},
+		#{title},
+		#{content},
+		now())
+	</insert>
+
+	<!--재정렬 식 -->
+	<select id="autoIncrement">
+		SET @COUNT=0;
+	</select>
+
+	<select id="autoIncrement2">
+		UPDATE board SET boardNo=@COUNT:=@COUNT+1;
+	</select>
+
+	<!-- 게시글 목록조회 -페이징 -->
+	<select id="selectBoardList" resultMap="boardResult">
+		SELECT * FROM um_board ORDER BY boardNo DESC LIMIT #{startIndex},#{endIndex}
+	</select>
+
+	<!-- 내 게시글 수정 -->
+	<update id="updateMyBoard">
+		UPDATE um_board SET title=#{title} ,content=#{content} WHERE boardNo =
+		#{boardNo}
+	</update>
+
+	<!-- 내 게시글 삭제 -->
+	<delete id="deleteMyBoard">
+		DELETE FROM um_board WHERE boardNo = #{boardNo}
+	</delete>
+
+	<!-- 특정게시글 조회 -->
+	<select id="selectBoardByNo" resultMap="boardResult">
+		SELECT * FROM um_board WHERE boardNo = #{boardNo}
+	</select>
+
+	<!-- 수정 폼 -->
+	<select id="selectUpdateView" resultMap="boardResult">
+		SELECT * FROM um_board WHERE boardNo = #{boardNo}
+	</select>
+
+	<!-- 총 게시글 건수 -->
+	<select id="selectBoardTotal" resultType="int">
+		SELECT COUNT(*) total FROM um_board
+	</select>
+	
+	<!-- 마이페이지에서 내 게시글 조회 -->
+	<select id="selectMyBoard" resultMap="boardResult">
+		SELECT * FROM um_board WHERE userId = #{userId}
+	</select>
+</mapper>

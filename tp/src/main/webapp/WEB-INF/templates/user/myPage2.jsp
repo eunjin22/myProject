@@ -457,7 +457,7 @@ input[name=userPw]::placeholder {
                      <p style="text-align: left; font-size: 12px; color: #FDF5DC">비밀번호
                      </p>
                      <input type="hidden" id="userPw3" name="userPw3" value="${SessionUserPW}">
-                     <input type="password" class="size5" id="userPw" name="userPw" value="${SessionUserPW}" required>
+                     <input type="password" class="size5" id="userPw" name="userPw" required>
                       <input type="button" class="btn3" onclick="modifyPw()" value="변경">
                       <p style="text-align: left; font-size: 13px; color: #FF6464">※비밀번호 확인 후 회원정보변경이 가능합니다.</p>
                   </label>

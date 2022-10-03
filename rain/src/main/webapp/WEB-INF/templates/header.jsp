@@ -26,9 +26,6 @@
                 <!-- Image Logo -->
                 <a class="navbar-brand logo-image" href="main.do"><img src="resources/images/apap.png" alt="alternative" style="width:200px;height:100px;"></a> 
 
-                <!-- Text Logo - Use this if you don't have a graphic logo -->
-                <!-- <a class="navbar-brand logo-text" href="index.html">Ioniq</a> -->
-
                 <button class="navbar-toggler p-0 border-0" type="button" id="navbarSideCollapse" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -41,6 +38,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="main.do#features">소개</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="main.do#place">대여·반납 장소</a>
+                        </li>
                         <%
                               if (USERID != null && USERPW != null && (USERID.equals("ADMIN"))) { // 로그인이 됐을시
                         %>
@@ -48,7 +48,7 @@
                             <a class="nav-link" href="adminRentalList.do">전체 대여 목록</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="main.do#pricing">Q&A</a>
+                            <a class="nav-link" href="list.do">자유게시판</a>
                         </li>
                         <span class="nav-item">
                         	<a href="logout.do" class="btn-outline-sm" >로그아웃</a>
@@ -60,7 +60,7 @@
                             <a class="nav-link" href="main.do#details">우산 대여하기</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="main.do#pricing">Q&A</a>
+                            <a class="nav-link" href="list.do">자유게시판</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="myPage.do">마이페이지</a>
@@ -72,10 +72,10 @@
                               } else{ //로그아웃상태
                         %>
                         <li class="nav-item">
-                            <a class="nav-link" href="login.do">우산 대여하기</a>
+                            <a class="nav-link" href="main.do#details">우산 대여하기</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="main.do#pricing">Q&A</a>
+                            <a class="nav-link" href="list.do">자유게시판</a>
                         </li>
                         <span class="nav-item">
                         	<a href="login.do" class="btn-outline-sm" >로그인</a>

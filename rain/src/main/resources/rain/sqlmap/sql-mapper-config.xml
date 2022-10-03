@@ -5,7 +5,6 @@
     <typeAliases>
 		<typeAlias alias="user" type="rain.service.UserVO"/>
 		<typeAlias alias="rental" type="rain.service.RentalVO"/>
-		<!--<typeAlias alias="board" type="tp.service.BoardVO"/>
-		   -->
+		<typeAlias alias="board" type="rain.service.BoardVO"/>
     </typeAliases>
 </configuration>

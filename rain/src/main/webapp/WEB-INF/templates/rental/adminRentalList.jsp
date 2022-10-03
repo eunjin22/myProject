@@ -30,20 +30,42 @@ body { background: #fff; }
   color: #004;
 }
 #size{
+   width: 100px;
+   height: 40px;
+}
+#size2{
    width: 90px;
    height: 40px;
+   background-color: #828282;
+   border:none;
+}
+#size3{
+	width: 90px;
+    height: 40px;
+	background-color:#d2d2d2;
+	border:none;
+}
+#size4{
+   width: 90px;
+   height: 40px;
+   background-color: #000069;
+   border:none;
 }
 #pad{
 	padding-right:580px;
 }
 #page{
-	padding-left:auto;
-	padding-right:auto;
+	padding-left:500px;
+	padding-right:500px;
+	float: left;
+	display: flex;
 }
 #pagecolor{
-    width: 90px;
+    width: 70px;
     height: 40px;
-	background-color:#323C73;
+	background-color:#FDEBC8;
+	color:#000000;
+	border:none;
 }
 
 </style>
@@ -64,7 +86,7 @@ body { background: #fff; }
         <meta name="twitter:card" content="summary_large_image"> <!-- to have large image post format in Twitter -->
 
         <!-- Webpage Title -->
-        <title>My Rent List</title>
+        <title>All Rent List</title>
         
         <!-- Styles -->
         <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
@@ -79,26 +101,53 @@ body { background: #fff; }
         <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
         <script type="text/javascript">
         
-		function cancel(){
-			 var no = $('#rentalNo').val();
-			 var id = $('#userId').val();
-/* 			 alert(no)
-			 alert(id) */
-		     $.ajax({
-				url : "deleteMyRental.do",
+		function rental(a, b){
+
+				 $.ajax({
+						url : "updateRentaling.do",
+						type : "GET",
+						dataType: "text",
+						data: {	
+							rentalNo : a,
+							rentalState : b
+						},
+						success : function(data){
+							if(data == "ok"){
+								alert("대여처리가 되었습니다.");
+								location.reload(); 
+							}else{	
+								
+							}	
+						}
+					})
+			 	}
+		
+		
+		function returns(a,b,c,d){
+
+			$.ajax({
+				url : "umbrellaReturn.do",
 				type : "GET",
-				data: {	
-					rentalNo : no,
-					userId : id
+				dataType : "text",
+				data : {
+					rentalNo : a,
+					returnPlace : b,
+					umbrellaCnt : c,
+					rentalState : d
 				},
-				dataType: "text",
 				success : function(data){
-					alert("cancel?");
-					location.reload();
+					if(data == "ok"){
+						alert("반납처리 되었습니다.");
+						location.reload();
+					}else{
+						
+					}
+					
 				}
 			})
-		}
+		} 
 		</script>
+ 
 </head>
 <body data-bs-spy="scroll" data-bs-target="#navbarExample">
 <jsp:include page="/WEB-INF/templates/header.jsp"></jsp:include>
@@ -138,12 +187,13 @@ body { background: #fff; }
                                 		<th scope="col"><b>대여장소</b></th>
                                 		<th scope="col"><b>반납장소</b></th>
                                 		<th scope="col"><b>대여일자</b></th>
-                                		<th scope="col"><b>반납일자</b></th> 	
+                                		<th scope="col"><b>반납일자</b></th>
+                                		<th scope="col"><b>대여개수</b></th> 	
                                 		<th scope="col"></th>	
                                 	</tr>
                                 </thead>
                                 <tbody>
-                                <c:forEach var="adminrental" items="${adminRentalList}"> 
+                                <c:forEach var="adminrental" items="${adminRentalList}" varStatus="status"> 
                                 	<tr>
                                 		<td>${adminrental.rentalNo}</td> 
                                 		<td>${adminrental.userId}</td>
@@ -153,35 +203,53 @@ body { background: #fff; }
                                 		<td>${adminrental.returnPlace}</td>
                                 		<td><fmt:formatDate value="${adminrental.rentalDate}" pattern="yyyy-MM-dd" /></td>
                                 		<td><fmt:formatDate value="${adminrental.returnDate}" pattern="yyyy-MM-dd" /></td>
-                                		<td><input type = "button" class="form-control-submit-button" 
-                                			onclick="cancel()" value="cancel" id="size"></td>
+                                		<td>${adminrental.umbrellaCnt}</td>
                                 		<td><input type ="hidden" id="rentalNo" name="rentalNo" value="${adminrental.rentalNo}"></td>
                                 		<td><input type ="hidden" id="userId" name="userId" value="${SessionUserID}"></td>
+                                		<td><input type = "hidden" id="rentalStatus" name="rentalStatus" value="${adminrental.rentalState}"></td>
+                                		<!-- <td><input type = "button" class="form-control-submit-button" value="대여" id="size"></td> -->
+                                		<c:if test = "${adminrental.rentalState eq 'RENTAL'}">
+                                			<td>
+                                			<input type = "button" class="form-control-submit-button" 
+                                			onclick="rental('${adminrental.rentalNo}','${adminrental.rentalState}')" value="대여" id="size"></td>
+                                		</c:if>
+                                		
+                                		<c:if test = "${adminrental.rentalState eq 'RENTALING'}">
+                                			<td>
+                                			<input type = "button" class="form-control-submit-button" 
+                                			onclick="rentaling('${adminrental.rentalNo}','${adminrental.rentalState}')" value="대여중" id="size4" disabled></td>
+                                			<td>
+                                			<input type = "button" class="form-control-submit-button" 
+                                			onclick="returns('${adminrental.rentalNo}','${adminrental.returnPlace}','${adminrental.umbrellaCnt}','${adminrental.rentalState}')" value="반납" id="size"></td>
+                                		</c:if> 
+                                		
+               							<c:if test = "${adminrental.rentalState eq 'CANCEL'}">
+                               			<td><input type = "button" class="form-control-submit-button" value="대여취소" id="size3" disabled>
+                               			</td> 
+                                		</c:if>
+                                		
+                                		<c:if test = "${adminrental.rentalState eq 'RETURN'}">
+                               			<td><input type = "button" class="form-control-submit-button" 
+                                			 value="반납완료" id="size2" disabled></td> 
+                                		</c:if>
                                 	</tr>
-                                	
                                 </c:forEach>
                                 </tbody>
                                </table>
                         	</div> 
                            </form>	
+                           
                            <!--페이징 처리  -->
    							<div style="text-align: center" id="page">
      							<input type="button" onclick="location.href='adminRentalList.do?viewPage=1'" value="처음" class="form-control-submit-button" id="pagecolor"></input>                 
       							<c:forEach var="i" begin="1" end="${totalPage}">
       							<input type="button" onclick="location.href='adminRentalList.do?viewPage=${i}'"  class="btn" value="${i}"></input>
-         							<%-- <a href="reserveConfirm.do?viewPage=${i}" class="btn4">${i}</a> --%>
       							</c:forEach>
       							<input type="button" onclick="location.href='adminRentalList.do?viewPage=${totalPage}'" value="끝" class="form-control-submit-button" id="pagecolor"></input>   
    							</div>
    							<br/>
-                           <!--  <p style="text-align: right; font-size: 13px; color: #FF6464"><b>※반납일자를 반드시 확인해주세요.</b></p> -->
                            <br>
-                           <input type="button" class="form-control-submit-button" onclick="location.href='main.do'" value="back" id="size">
-                            
-                            
-                            
-                            
-                            <!-- end of sign up form -->
+                           <input type="button" class="form-control-submit-button" onclick="location.href='main.do'" value="뒤로가기" id="size">
  
                       </div>  <!-- end of text-box  -->
                     </div> <!-- end of col -->
@@ -190,91 +258,26 @@ body { background: #fff; }
        </div> <!-- end of ex-basic-1 -->
         <!-- end of basic -->
 
-
-        <!-- Footer -->
-        <div class="footer">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="footer-col first">
-                            <h6>About Website</h6>
-                            <p class="p-small">학교 안에서 자유롭게 대여가능한 RENDRELLA, <br> 지금 바로 만나보세요! <br>
-                            	본관, 의양관, 사회관, 공학관,<br>바우어관, 본관에서 만나요~*^^*
-                            </p>
-                        </div> <!-- end of footer-col -->
-                        <div class="footer-col second">
-                            <h6>Links</h6>
-                            <ul class="list-unstyled li-space-lg p-small">
-                                <li>Important: <a href="terms.html">Terms & Conditions</a>, <a href="privacy.html">Privacy Policy</a></li>
-                                <li>Useful: <a href="#">Colorpicker</a>, <a href="#">Icon Library</a>, <a href="#">Illustrations</a></li>
-                                <li>Menu: <a href="#header">Home</a>, <a href="#features">Features</a>, <a href="#details">Details</a>, <a href="#pricing">Pricing</a></li>
-                            </ul>
-                        </div> <!-- end of footer-col -->
-                        <div class="footer-col third">
-                            <span class="fa-stack">
-                                <a href="#your-link">
-                                    <i class="fas fa-circle fa-stack-2x"></i>
-                                    <i class="fab fa-facebook-f fa-stack-1x"></i>
-                                </a>
-                            </span>
-                            <span class="fa-stack">
-                                <a href="#your-link">
-                                    <i class="fas fa-circle fa-stack-2x"></i>
-                                    <i class="fab fa-twitter fa-stack-1x"></i>
-                                </a>
-                            </span>
-                            <span class="fa-stack">
-                                <a href="#your-link">
-                                    <i class="fas fa-circle fa-stack-2x"></i>
-                                    <i class="fab fa-pinterest-p fa-stack-1x"></i>
-                                </a>
-                            </span>
-                            <span class="fa-stack">
-                                <a href="#your-link">
-                                    <i class="fas fa-circle fa-stack-2x"></i>
-                                    <i class="fab fa-instagram fa-stack-1x"></i>
-                                </a>
-                            </span>
-                            <p class="p-small">Quam posuerei pellent esque university <a href="mailto:contact@site.com"><strong>contact@site.com</strong></a></p>
-                        </div> <!-- end of footer-col -->
-                    </div> <!-- end of col -->
-                </div> <!-- end of row -->
-            </div> <!-- end of container -->
-        </div> <!-- end of footer -->  
-        <!-- end of footer -->
-
-   
-        <!-- Copyright -->
+	<br><br><br><br><br>
+      <!-- Copyright -->
         <div class="copyright">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-6">
-                        <p class="p-small">Copyright © <a href="#your-link">RENDRELLA</a></p>
+                    <br><br>
+                        <p class="p-small">Contact  :  <a href="#your-link">010-4598-1524</a></p>
                     </div> <!-- end of col -->
 
+
+					
                     <div class="col-lg-6">
+                     <br><br>
                         <p class="p-small">RENT By<a href="https://themewagon.com/">UNIVERSITY</a></p>    
                     </div> <!-- end of col -->
                 </div> <!-- enf of row -->
             </div> <!-- end of container -->
         </div> <!-- end of copyright --> 
         <!-- end of copyright -->
-
-        <!-- Copyright -->
-        <div class="copyright">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <p class="p-small">Copyright © <a href="#your-link">Your name</a></p>
-                    </div> <!-- end of col -->
-                    <div class="col-lg-6">
-                        <p class="p-small">Distributed By<a href="https://themewagon.com/"> Themewagon</a></p>
-                    </div> <!-- end of col -->
-                </div> <!-- enf of row -->
-            </div> <!-- end of container -->
-        </div> <!-- end of copyright --> 
-        <!-- end of copyright -->
-        
 
         <!-- Back To Top Button -->
         <button onclick="topFunction()" id="myBtn">

@@ -33,9 +33,9 @@ public class UserServiceImpl implements UserService{
 	//아이디중복체크
 	@Override
 	public int idCheck(String userId) throws Exception {
-		int cnt = userDAO.idCheck(userId); //db에서 가져와서 cnt에 저장
+		int cnt = userDAO.idCheck(userId); 
 	    System.out.println("cnt: "+ cnt);
-	    return cnt; //id값 리턴
+	    return cnt; 
 	}
 
 	//로그인
@@ -45,7 +45,6 @@ public class UserServiceImpl implements UserService{
 	}
 
 	//마이페이지 조회할때 세션값 가져옴
-	
 	@Override 
 	public UserVO selectUser(String userId) { 
 	    return userDAO.selectUser(userId); }
@@ -59,6 +58,24 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public String selectUserPhone(String userId) throws Exception {
 		return userDAO.selectUserPhone(userId);
+	}
+
+	//마이페이지 비밀번호 수정
+	@Override
+	public void updatePass(UserVO userVO) {
+		userDAO.updatePass(userVO);	
+	}
+
+	//마이페이지 핸드폰번호 수정
+	@Override
+	public void updatePhone(UserVO userVO) {
+		userDAO.updatePhone(userVO);	
+	}
+
+	//마이페이지 정보 수정 후 뷰
+	@Override
+	public UserVO myPageView(String userId) {
+		return userDAO.myPageView(userId);
 	}
 
 	

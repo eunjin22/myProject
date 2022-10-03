@@ -26,7 +26,7 @@
         <meta name="twitter:card" content="summary_large_image"> <!-- to have large image post format in Twitter -->
 
         <!-- Webpage Title -->
-        <title>Sign Up - Ioniq</title>
+        <title>Sign Up</title>
         
         <!-- Styles -->
         <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
@@ -48,6 +48,9 @@
 	          var pw2= $('#userPw2').val();
 	          var name= $('#userName').val();
 	          var phone= $('#userPhone').val();  
+
+	          var checkPhone = /^[0-9]{11}$/;
+
 	          
 	          if(id == ""){
 	             alert("아이디를 입력하세요.")
@@ -59,6 +62,10 @@
 	             alert("이름을 입력하세요.")
 	          }else if(phone == ""){
 	             alert("전화번호를 입력하세요.")
+	          }else if($('#userPhone').val().length<11){
+	        	  alert("전화번호 11자리를 입력해주세요.")
+	          }else if(!checkPhone.test(phone)){
+	        	  alert("전화번호 형식이 올바르지 않습니다.")
 	          }else{
 	             $.ajax({
 	                  url:'signUp.do',
@@ -74,7 +81,9 @@
 	                  success: function(data){
 	                     if(data == ""){
 	                        alert("회원정보를 다시확인해주세요.")
-	                     }else{
+	                     }else if(data == "no"){
+	                    	 alert("아이디 중복체크를 진행해주세요.")
+	                     }else if(data == "ok"){
 	                        alert("Rendrella에 오신 것을 환영합니다!")
 	                        location.href="main.do"  
 	                     }
@@ -86,7 +95,7 @@
 	      }
 	      
 
-		/* 아이디 중복체크ㄴ */  
+		/* 아이디 중복체크 */  
 	      function checkId() {
 	            $.ajax({
 	               url : "idCheck.do",
@@ -148,27 +157,27 @@
                             <!-- Sign Up Form -->
                             <form>
                                 <div class="mb-4 form-floating">
-                                    <input type="text" class="form-control" id="userId" name="userId" placeholder="id">
+                                    <input type="text" class="form-control" id="userId" name="userId" placeholder="id" autocomplete="off">
                                     <label for="floatingInput">아이디</label>
                                     <br> 
                                     <input type="button" class="form-control-submit-button" onclick="checkId()" value="아이디 확인">
                                 </div>
                                 <div class="mb-4 form-floating">
-                                    <input type="password" class="form-control" id="userPw" name="userPw" placeholder="Password">
+                                    <input type="password" class="form-control" id="userPw" name="userPw" placeholder="Password" autocomplete="off">
                                     <label for="floatingPassword">비밀번호</label>
                                 </div>
                                 <div class="mb-4 form-floating">
-                                    <input type="password" class="form-control" id="userPw2" name="userPw2" placeholder="Password Check">
+                                    <input type="password" class="form-control" id="userPw2" name="userPw2" placeholder="Password Check" autocomplete="off">
                                     <label for="floatingPassword">비밀번호 확인</label>
                                     <font id="password_check" size="2"></font>
                                 </div>
                                 <div class="mb-4 form-floating">
-                                    <input type="text" class="form-control" id="userName" name="userName" placeholder="Your name">
+                                    <input type="text" class="form-control" id="userName" name="userName" placeholder="Your name" autocomplete="off"> 
                                     <label for="floatingInput">이름</label>
                                 </div>
                                 <div class="mb-4 form-floating">
-                                    <input type="tel" class="form-control" id="userPhone" name="userPhone" placeholder="tel">
-                                    <label for="floatingInput">전화번호</label>
+                                    <input type="tel" class="form-control" id="userPhone" name="userPhone" placeholder="'-'없이 숫자만 입력하세요." maxlength="11" autocomplete="off">
+                                    <label for="floatingInput">전화번호 :&nbsp;&nbsp; '-' 없이 숫자만 입력하세요.</label>
                                 </div>                                
                                 <input type="button" class="form-control-submit-button" onclick="location.href='main.do'" value="뒤로가기" id="btn">
                                 <span></span>
@@ -184,90 +193,25 @@
         <!-- end of basic -->
 
 
-        <!-- Footer -->
-        <div class="footer">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="footer-col first">
-                            <h6>About Website</h6>
-                            <p class="p-small">학교 안에서 자유롭게 대여가능한 RENDRELLA, <br> 지금 바로 만나보세요! <br>
-                            	본관, 의양관, 사회관, 공학관,<br>바우어관, 본관에서 만나요~*^^*
-                            </p>
-                        </div> <!-- end of footer-col -->
-                        <div class="footer-col second">
-                            <h6>Links</h6>
-                            <ul class="list-unstyled li-space-lg p-small">
-                                <li>Important: <a href="terms.html">Terms & Conditions</a>, <a href="privacy.html">Privacy Policy</a></li>
-                                <li>Useful: <a href="#">Colorpicker</a>, <a href="#">Icon Library</a>, <a href="#">Illustrations</a></li>
-                                <li>Menu: <a href="#header">Home</a>, <a href="#features">Features</a>, <a href="#details">Details</a>, <a href="#pricing">Pricing</a></li>
-                            </ul>
-                        </div> <!-- end of footer-col -->
-                        <div class="footer-col third">
-                            <span class="fa-stack">
-                                <a href="#your-link">
-                                    <i class="fas fa-circle fa-stack-2x"></i>
-                                    <i class="fab fa-facebook-f fa-stack-1x"></i>
-                                </a>
-                            </span>
-                            <span class="fa-stack">
-                                <a href="#your-link">
-                                    <i class="fas fa-circle fa-stack-2x"></i>
-                                    <i class="fab fa-twitter fa-stack-1x"></i>
-                                </a>
-                            </span>
-                            <span class="fa-stack">
-                                <a href="#your-link">
-                                    <i class="fas fa-circle fa-stack-2x"></i>
-                                    <i class="fab fa-pinterest-p fa-stack-1x"></i>
-                                </a>
-                            </span>
-                            <span class="fa-stack">
-                                <a href="#your-link">
-                                    <i class="fas fa-circle fa-stack-2x"></i>
-                                    <i class="fab fa-instagram fa-stack-1x"></i>
-                                </a>
-                            </span>
-                            <p class="p-small">Quam posuerei pellent esque university <a href="mailto:contact@site.com"><strong>contact@site.com</strong></a></p>
-                        </div> <!-- end of footer-col -->
-                    </div> <!-- end of col -->
-                </div> <!-- end of row -->
-            </div> <!-- end of container -->
-        </div> <!-- end of footer -->  
-        <!-- end of footer -->
-
-   
-        <!-- Copyright -->
+         <!-- Copyright -->
         <div class="copyright">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-6">
-                        <p class="p-small">Copyright © <a href="#your-link">RENDRELLA</a></p>
+                    <br><br>
+                        <p class="p-small">Contact  :  <a href="#your-link">010-4598-1524</a></p>
                     </div> <!-- end of col -->
 
+
+					
                     <div class="col-lg-6">
-                        <p class="p-small">RENT By<a href="https://themewagon.com/">UNIVERSITY</a></p>    
+                     <br><br>
+                         <p class="p-small">RENT By &nbsp;UNIVERSITY</p>       
                     </div> <!-- end of col -->
                 </div> <!-- enf of row -->
             </div> <!-- end of container -->
         </div> <!-- end of copyright --> 
         <!-- end of copyright -->
-
-        <!-- Copyright -->
-        <div class="copyright">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <p class="p-small">Copyright © <a href="#your-link">Your name</a></p>
-                    </div> <!-- end of col -->
-                    <div class="col-lg-6">
-                        <p class="p-small">Distributed By<a href="https://themewagon.com/"> Themewagon</a></p>
-                    </div> <!-- end of col -->
-                </div> <!-- enf of row -->
-            </div> <!-- end of container -->
-        </div> <!-- end of copyright --> 
-        <!-- end of copyright -->
-        
 
         <!-- Back To Top Button -->
         <button onclick="topFunction()" id="myBtn">

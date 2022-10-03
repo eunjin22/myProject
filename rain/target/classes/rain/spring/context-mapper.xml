@@ -8,7 +8,4 @@
 		<property name="configLocation" value="classpath:/rain/sqlmap/sql-mapper-config.xml" />
 		<property name="mapperLocations" value="classpath:/rain/sqlmap/mappers/*.xml" /> 
 	</bean>
-
-	
-    
 </beans>

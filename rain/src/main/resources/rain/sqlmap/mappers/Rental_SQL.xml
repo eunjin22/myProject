@@ -1,63 +1,124 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="rain.sqlmap.mappers.Rental_SQL"> 
+<mapper namespace="rain.sqlmap.mappers.Rental_SQL">
 
-	<resultMap type="rental" id="rentalResult"> 
-		<result property="rentalNo" column="rentalNo"/>
-		<result property="userId" column="userId"/>
-		<result property="userName" column="userName"/>
-		<result property="userPhone" column="userPhone"/>
-		<result property="rentalPlace" column="rentalPlace"/>
-		<result property="returnPlace" column="returnPlace"/>
-		<result property="rentalDate" column="rentalDate"/>
-		<result property="returnDate" column="returnDate"/>
+	<resultMap type="rental" id="rentalResult">
+		<result property="rentalNo" column="rentalNo" />
+		<result property="userId" column="userId" />
+		<result property="userName" column="userName" />
+		<result property="userPhone" column="userPhone" />
+		<result property="rentalPlace" column="rentalPlace" />
+		<result property="returnPlace" column="returnPlace" />
+		<result property="umbrellaCnt" column="umbrellaCnt" />
+		<result property="rentalDate" column="rentalDate" />
+		<result property="returnDate" column="returnDate" />
+		<result property="umbrellaTotalCount"
+			column="umbrellaTotalCount" />
+		<result property="rentalState" column="rentalState" />
 	</resultMap>
 
-	<!--대여 신청  -->
+	<!--대여 신청 -->
 	<insert id="insertRental" parameterType="rain.service.RentalVO">
-	INSERT INTO um_rental
-	(userId, userName, userPhone, rentalPlace, returnPlace, rentalDate, returnDate)
-	values(
-	#{userId},
-	#{userName},
-	#{userPhone},
-	#{rentalPlace},
-	#{returnPlace},
-	#{rentalDate},
-	DATE_ADD(#{rentalDate}, INTERVAL 2 WEEK)
-	)
+		INSERT INTO um_rental
+		(userId, userName, userPhone, rentalPlace, returnPlace, umbrellaCnt,
+		rentalDate, returnDate)
+		values(
+		#{userId},
+		#{userName},
+		#{userPhone},
+		#{rentalPlace},
+		#{returnPlace},
+		#{umbrellaCnt},
+		#{rentalDate},
+		DATE_ADD(#{rentalDate}, INTERVAL 2 WEEK)
+		)
 	</insert>
-	
-	<!-- 대여확인 : 대여가 있으면 1 없으면 0 -->
-	<select id="rentalCheck" resultType="int">
-		SELECT COUNT(*) FROM um_rental WHERE rentalNo = #{rentalNo}
-	</select>
-	
-	<!-- 본인 대여내역조회  -->
-	<select id="myrentalList" resultMap="rentalResult">
-		SELECT * FROM um_rental WHERE userId = #{userId} ORDER BY rentalNo DESC
-	</select>
-	
-	<!-- qr찍었을때 해당 id의 정보를 가져옴 -->
-	<select id="findByQr">
-		SELECT * FROM um_rental WHERE userId = #{userId}
+
+	<!-- 우산개수확인 -->
+	<select id="umbrellaCount" resultType="int">
+		SELECT umbrellaTotalCount
+		FROM um_count WHERE rentalPlace = #{rentalPlace}
 	</select>
 
-	<!-- 본인 예약내역취소  -->
-	<delete id="deleteMyRental">
-		DELETE FROM um_rental where userId = #{userId} and rentalNo = #{rentalNo}
-	</delete>
-	
+	<!-- 우산개수 대여 -->
+	<update id="umbrellaRental">
+		UPDATE um_count SET umbrellaTotalCount =
+		umbrellaTotalCount - #{umbrellaCnt} WHERE rentalPlace = #{rentalPlace}
+	</update>
+
+	<!-- 대여 취소 -->
+	<update id="umbrellaCancel">
+		UPDATE um_count SET umbrellaTotalCount =
+		umbrellaTotalCount + #{umbrellaCnt} WHERE rentalPlace = #{rentalPlace}
+	</update>
+
+	<!-- 우산 반납 -->
+	<update id="umbrellaReturn">
+		UPDATE um_count SET umbrellaTotalCount =
+		umbrellaTotalCount + #{umbrellaCnt} WHERE rentalPlace = #{rentalPlace}
+	</update>
+
+	<!-- 본인 대여내역조회 -->
+	<select id="myrentalList" resultMap="rentalResult">
+		SELECT * FROM um_rental
+		WHERE userId = #{userId} ORDER BY rentalNo DESC
+	</select>
+
 	<!-- 관리자 대여내역조회 -->
 	<select id="adminRentalList" resultMap="rentalResult">
-		SELECT * FROM um_rental WHERE rentalDate>=CURDATE() ORDER BY rentalDate LIMIT #{startIndex},#{endIndex}
+		SELECT * FROM um_rental
+		WHERE rentalDate>=CURDATE() ORDER BY rentalNo desc LIMIT
+		#{startIndex},#{endIndex}
 	</select>
-	
+
 	<!-- 총 대여건수 -->
 	<select id="selectrentalTotal" resultType="int">
-		SELECT COUNT(*) total FROM um_rental WHERE rentalDate >= CURDATE()
+		SELECT COUNT(*) total
+		FROM um_rental WHERE rentalDate >= CURDATE()
 	</select>
-	
+
+	<!-- 재정렬식 -->
+	<select id="listArray1">
+		SET @COUNT = 0
+	</select>
+
+	<select id="listArray2">
+		UPDATE um_rental SET rentalNo = @COUNT:=@COUNT+1
+	</select>
+
+	<!--대여 => 대여중 -->
+	<update id="updateRentaling">
+		UPDATE um_rental SET rentalState = 'RENTALING' WHERE
+		rentalNo = #{rentalNo}
+	</update>
+
+	<!-- 대여 => 취소 -->
+	<update id="updateCancel">
+		UPDATE um_rental SET rentalState = 'CANCEL' WHERE
+		rentalNo = #{rentalNo}
+	</update>
+
+	<!-- 대여 => 반납 -->
+	<update id="updateReturn">
+		UPDATE um_rental SET rentalState = 'RETURN' WHERE
+		rentalNo = #{rentalNo}
+	</update>
+
+	<!-- 총 대여 갯수 -->
+	<select id="totalCount" resultMap="rentalResult">
+		SELECT * FROM um_count
+	</select>
+
+	<update id="updateReturnPlace">
+		UPDATE um_rental SET returnPlace = #{returnPlace}
+		WHERE rentalNo =#{rentalNo}
+	</update>
+
+	<!-- 예약번호 세션값 -->
+	<select id="selectRentalNo" resultType="int">
+		SELECT rentalNo from
+		um_rental where rentalNo = #{rentalNo}
+	</select>
 </mapper>
 
 	

@@ -4,13 +4,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>QR CODE</title>
+<title>Insert title here</title>
+<script>
+alert("로그인이 필요한 서비스입니다.");
+location="login.do";
+</script>
 </head>
 <body>
-  QR CODE
-  <form action="qrqr.do", method="GET">
-    <input type="text" name="url"/>
-    <button type="submit">create</button>
-  </form>
+
 </body>
 </html>
