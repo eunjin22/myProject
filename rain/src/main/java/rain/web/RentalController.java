@@ -29,7 +29,7 @@ public class RentalController {
 	public String insertRental(RentalVO rentalVO, @RequestParam(name = "rentalDate") Date rentalDate,
 			@RequestParam(name = "rentalPlace") String rentalPlace, @RequestParam(name = "umbrellaCnt") int umbrellaCnt,
 			@RequestParam(name = "returnPlace") String returnPlace, HttpSession session, HttpServletRequest request)
-			throws Exception {
+			throws Exception { 
 
 		String data = "";
 
